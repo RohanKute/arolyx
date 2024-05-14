@@ -12,13 +12,12 @@ export default function NavBar() {
         setIsLineClicked(false);
     }
     return (
-        <div>
-            <nav>
+            <nav className='fixed top-0 w-full '> 
                 <div>
                     {/*navbar-above-md-screens*/}
-                    <div className="hidden md:flex h-20 bg-transperent  justify-around items-center">
+                    <div className="hidden md:flex h-20 bg-transperent  justify-around items-center border-b border-gray-200 bg-white">
                         <div>
-                            <img className='h-20 ' src={img} alt="" />
+                            <img className='h-20' src={img} alt="arolyx-logo" />
                         </div>
                         <div className="hidden  md:flex justify-around text-black-700 text-l font-semibold">
                             <div className="mx-3 p-2 hover:bg-yellow-200 hover:rounded-md">
@@ -28,7 +27,7 @@ export default function NavBar() {
                                 <a href="">About</a>
                             </div>
                             <div className="mx-3 p-2 hover:bg-yellow-200 hover:rounded-md">
-                                <a href="">Signup(get updates!)</a>
+                                <a href="">Signup(Get updates!)</a>
                             </div>
                         </div>
                         <div>
@@ -49,7 +48,7 @@ export default function NavBar() {
                 {/* navbar-small-screens*/}
 
                 <div >
-                    <div className="md:hidden block h-16 bg-white   justify-around items-center">
+                    <div className="md:hidden block h-18 bg-white   justify-around items-center border-b border-gray-200">
                         <div className='flex justify-between items-center'>
                             <img className='h-20 mx-2' src={img} alt="" />
                             <div className="md:hidden mx-4">
@@ -70,10 +69,10 @@ export default function NavBar() {
                         </div>
                         {isLinesClicked &&
 
-                            <div className='bg-white '>
+                            <div className='bg-white'>
                                 <div className="text-black-700 text-l font-semibold">
                                     <div className="my-3 mx-5 :hover  hover:bg-yellow-200 hover:rounded-md p-3">
-                                        <a href="">See products</a>
+                                        <a href="">Products</a>
                                     </div>
                                     <div className="my-3 mx-5 hover:bg-yellow-200 hover:rounded-md p-3">
                                         <a href="">About</a>
@@ -94,6 +93,5 @@ export default function NavBar() {
                     </div>
                 </div>
             </nav>
-        </div>
     )
 }
