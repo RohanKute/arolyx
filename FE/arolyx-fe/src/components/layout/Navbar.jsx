@@ -15,9 +15,9 @@ export default function NavBar() {
             <nav className='fixed top-0 w-full '> 
                 <div>
                     {/*navbar-above-md-screens*/}
-                    <div className="hidden md:flex h-20 bg-transperent  justify-around items-center border-b border-gray-200 bg-white">
+                    <div className="hidden md:flex h-14 bg-transperent  justify-around items-center border-b border-gray-200 bg-white">
                         <div>
-                            <img className='h-20' src={img} alt="arolyx-logo" />
+                            <img className='h-14' src={img} alt="arolyx-logo" />
                         </div>
                         <div className="hidden  md:flex justify-around text-black-700 text-l font-semibold">
                             <div className="mx-3 p-2 hover:bg-yellow-200 hover:rounded-md">
