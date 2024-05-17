@@ -4,13 +4,14 @@ const { PrismaClient , Prisma} = require('@prisma/client');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const prisma = new PrismaClient();
+const jwtSecret = process.env.JWT_SECRET;
 
 const registerUser = router.post('/register', async(req, res) => {
     try {
         const userData = req.body;
         const user = await register(userData);
         if (!user.error) {
-            const token = jwt.sign({ number: String(user.number) }, "jwtSecret", { expiresIn: '72h' })
+            const token = jwt.sign({ number: String(user.number) }, jwtSecret, { expiresIn: '72h' })
             console.log(token)
             if (token) {
                 return res.json({
@@ -53,7 +54,6 @@ const register = async (userData) => {
             }
         }
     }
-
 }
 
 module.exports = {registerUser};

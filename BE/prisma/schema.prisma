@@ -34,5 +34,6 @@ model Product {
   name        String
   description String
   price       String
+  makeVisibleToUser Boolean
   cartPriducts cartProducts[]
 }
