@@ -8,4 +8,3 @@ cloudinary.v2.config({
 });
 
 module.exports = {cloudinary};
-// 33110fc
