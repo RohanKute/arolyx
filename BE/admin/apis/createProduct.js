@@ -31,3 +31,4 @@ const createProduct = router.post('/create-product', upload.array('file'), async
 });
 
 module.exports = {createProduct};
+
