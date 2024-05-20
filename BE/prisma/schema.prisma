@@ -32,8 +32,9 @@ model cartProducts {
 model Product {
   id          Int    @unique @default(autoincrement())
   name        String
-  description String
-  price       String
+  description String?
+  price       String?
+  imgUrl      String[]
   makeVisibleToUser Boolean
   cartPriducts cartProducts[]
 }
