@@ -18,7 +18,11 @@ const createProduct = router.post('/create-product', upload.array('file'), async
             const buffer = parser.format('.png', image.buffer);
             const uploadResult = await cloudinary.v2.uploader.upload(buffer.content, { folder: "arolyx" });
             if (uploadResult.url) {
-                imageUrlArr.push(uploadResult.url);
+                const obj = {
+                    url : uploadResult.url,
+                    publicId : uploadResult.public_id
+                }
+                imageUrlArr.push(obj);
             }
         }
         const makeVisibleToUser = (userData.makeVisibleToUser === 'true')
@@ -28,10 +32,12 @@ const createProduct = router.post('/create-product', upload.array('file'), async
                     name: userData.name,
                     description: userData.description,
                     price: userData.price,
-                    imgUrl: imageUrlArr,
+                    img: imageUrlArr,
                     makeVisibleToUser: makeVisibleToUser
                 }
             });
+            console.log(product);
+
             if (product) {
                 console.log(product)
                 return res.status(200).json({

@@ -34,7 +34,7 @@ model Product {
   name        String
   description String?
   price       String?
-  imgUrl      String[]
+  img         Json[]
   makeVisibleToUser Boolean
   cartPriducts cartProducts[]
 }
