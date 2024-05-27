@@ -19,8 +19,8 @@ const createProduct = router.post('/create-product', upload.array('file'), async
             const uploadResult = await cloudinary.v2.uploader.upload(buffer.content, { folder: "arolyx" });
             if (uploadResult.url) {
                 const obj = {
-                    url : uploadResult.url,
-                    publicId : uploadResult.public_id
+                    url: uploadResult.url,
+                    publicId: uploadResult.public_id
                 }
                 imageUrlArr.push(obj);
             }
@@ -33,7 +33,8 @@ const createProduct = router.post('/create-product', upload.array('file'), async
                     description: userData.description,
                     price: userData.price,
                     img: imageUrlArr,
-                    makeVisibleToUser: makeVisibleToUser
+                    makeVisibleToUser: makeVisibleToUser,
+                    stock : userData.stock
                 }
             });
             console.log(product);
@@ -51,7 +52,7 @@ const createProduct = router.post('/create-product', upload.array('file'), async
         });
     } catch (error) {
         console.log(error)
-        res.status(500).json({ error: "internel-server-error" });
+        return res.status(500).json({ error: "internel-server-error" });
     }
 });
 

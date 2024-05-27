@@ -38,7 +38,7 @@ const updateProduct = router.post('/update-product', upload.array('file'), async
                 }
             }
             if (req.body.imgArr) {
-                for (const image of req.body.imgArr[0]) {
+                for (const image of req.body.imgArr) {
                     await cloudinary.v2.uploader.destroy(image);
                 }
             }
@@ -52,7 +52,8 @@ const updateProduct = router.post('/update-product', upload.array('file'), async
                     description: newData.description,
                     price: newData.price,
                     img: newImgArr,
-                    makeVisibleToUser: makeVisibleToUser
+                    makeVisibleToUser: makeVisibleToUser,
+                    stock: newData.stock
                 }
             })
             if (product) {
@@ -68,7 +69,6 @@ const updateProduct = router.post('/update-product', upload.array('file'), async
         }
 
     } catch (error) {
-        console.log(error);
         return res.json({
             messege: "internal-server-error",
             code: 0

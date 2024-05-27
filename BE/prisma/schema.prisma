@@ -35,6 +35,7 @@ model Product {
   description String?
   price       String?
   img         Json[]
+  stock       Int @default(0)
   makeVisibleToUser Boolean
   cartPriducts cartProducts[]
 }
