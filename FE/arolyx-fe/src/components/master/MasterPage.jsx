@@ -1,18 +1,30 @@
 import Footer from "../layout/Footer";
 import NavBar from "../layout/Navbar";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import ProductPage from "../pages/ProductPage";
 
 
-export default function MasterPage(){
-     return(
+export default function MasterPage() {
+    return (
         <>
-            <div className="container-sm h-screen masterPage">
-               <NavBar/>
-               <main className="container-m mt-2" >
-
-               </main>
-               <Footer/>
+            <div className="container-sm top-0 h-screen masterPage">
+                <div className='fixed top-0 w-full'>
+                    <NavBar />
+                </div>
+                <main className="container-m pt-16">
+                    <Router>
+                        <Routes>
+                            <Route path="/products" element={
+                                <ProductPage />
+                            } />
+                        </Routes>
+                    </Router>
+                </main>
+                <div className="sticky top-[100vh]">
+                    <Footer />
+                </div>
             </div>
 
         </>
-     )
+    )
 }

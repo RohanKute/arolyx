@@ -12,7 +12,7 @@ export default function NavBar() {
         setIsLineClicked(false);
     }
     return (
-            <nav className='fixed top-0 w-full '> 
+            <nav> 
                 <div>
                     {/*navbar-above-md-screens*/}
                     <div className="hidden md:flex h-14 bg-transperent  justify-around items-center border-b border-gray-200 bg-white">
@@ -21,7 +21,7 @@ export default function NavBar() {
                         </div>
                         <div className="hidden  md:flex justify-around text-black-700 text-l font-semibold">
                             <div className="mx-3 p-2 hover:bg-yellow-200 hover:rounded-md">
-                                <a href="">Products</a>
+                                <a href="/products">Products</a>
                             </div>
                             <div className="mx-3 p-2 hover:bg-yellow-200 hover:rounded-md">
                                 <a href="">About</a>
@@ -48,9 +48,9 @@ export default function NavBar() {
                 {/* navbar-small-screens*/}
 
                 <div >
-                    <div className="md:hidden block h-18 bg-white   justify-around items-center border-b border-gray-200">
+                    <div className="md:hidden block bg-white   justify-around items-center border-b border-gray-200">
                         <div className='flex justify-between items-center'>
-                            <img className='h-20 mx-2' src={img} alt="" />
+                            <img className='h-14 mx-2' src={img} alt="" />
                             <div className="md:hidden mx-4">
                                 {isLinesClicked ? (<>
                                     <button onClick={handleXClicked} className=' hover:bg-yellow-200 hover:rounded-full p-2'>
