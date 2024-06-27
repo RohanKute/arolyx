@@ -1,8 +1,25 @@
+import { useEffect, useState } from "react";
 import Filter from "../parts/Filter";
-import Product from "../parts/Product";
 import Search from "../parts/Search";
+import Product from "../parts/Product";
 
 export default function ProductPage() {
+   const [products, setProducts] = useState();
+
+   useEffect(()=>{
+       const getProduct = async()=>{
+           try {
+              const productsFromServer = axios.get('http://localhost:3000/user/see-products');
+              console.log(products)
+              if(products){
+                 setProducts(productsFromServer)
+              }
+           } catch (error) {
+            
+           }
+       }
+   },[])
+
    return (
       <>
          <div className="flex justify-center" >
@@ -17,14 +34,12 @@ export default function ProductPage() {
                   <Filter />
                </div>
             </div>
-            <div className="flex justify-center">
+            <div className="flex justify-center flex-wrap">
                <Product />
                <Product />
-
                <Product />
-
                <Product />
-
+               
             </div>
          </div>
       </>

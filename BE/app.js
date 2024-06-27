@@ -21,7 +21,7 @@ app.listen(PORT, () => {
 
 app.use('/user/onboard', registerUser);
 app.use('/user/onboard', loginUser);
-app.use('/user/see-prouducts', seeProucts);
+app.use('/user', seeProducts);
 app.use('/admin' , createProduct);
 app.use('/admin' , updateProduct);
 app.use('/admin', seeProducts);
