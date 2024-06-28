@@ -4,7 +4,7 @@ const {PrismaClient} = require('@prisma/client');
 
 const prisma = new PrismaClient();
 
-const seeProucts = router.get('/' , async(req, res) =>{
+const seeProductsUser = router.get('/see-products' , async(req, res) =>{
         try {
             const products = await prisma.product.findMany({});
             res.json({
@@ -18,4 +18,4 @@ const seeProucts = router.get('/' , async(req, res) =>{
         }
 })
 
-module.exports = {seeProucts};
+module.exports = {seeProductsUser};

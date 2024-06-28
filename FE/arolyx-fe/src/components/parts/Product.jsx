@@ -1,32 +1,23 @@
-import { useEffect, useState } from "react"
+import React from 'react';
 
-export default function Product() {
-
-   const [img , setImd] = useState("");
-
-   // useEffect(()=>{
-   //     const getImage = await 
-   // })
-   return (
-      <>
-         <div className="max-w-64 min-w-64 bg-white  border border-gray-300 min-h-96 m-3 flex flex-col justify-stretch ">
-            <div className="max-h-72 flex">
-               <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=1904&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
-            </div>
-            <div className="flex flex-col  justify-between">
-               <div>
-                  <p className=" text-slate-700 ml-2 xs">Short Description here.</p>
-               </div>
-               <div>
-                  <p className=" font-medium text-black ml-2">&#8377; 300</p>
-               </div>
-               <div className="ml-1 border mt-2 border-gray-800 p-1 rounded max-w-28 text-center hover:border-2">
-                    <a href="/"className="">
-                         Details
-                    </a>
-               </div>
-            </div>
-         </div>
-      </>
-   )
+export default function Product({ product }) {
+  return (
+    <div className="max-w-xs w-full bg-white border border-gray-200 shadow-lg m-3 flex flex-col rounded-lg overflow-hidden">
+      <div className="h-64 overflow-hidden">
+        <img className="w-full h-full object-cover" src={product.img[0].url} alt={product.name} />
+      </div>
+      <div className="p-4 flex flex-col  justify-around flex-grow">
+        <div>
+          <h2 className="text-lg font-semibold text-gray-900 mb-2">{product.name}</h2>
+          <p className="text-gray-700 text-sm mb-2 overflow-hidden overflow-ellipsis" style={{ height: '3rem' }}>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas et sequi quos, ratione illo</p>
+        </div>
+        <div className="flex  justify-around">
+          <p className="text-xl font-semibold text-gray-900 mb-2">&#8377; {product.price}</p>
+          <a href="/" className="w-2/4 text-center bg-yellow-300 text-black font-medium py-2 rounded-lg hover:bg-yellow-500 transition duration-300">
+            View
+          </a>
+        </div>
+      </div>
+    </div>
+  );
 }

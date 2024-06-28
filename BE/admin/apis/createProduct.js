@@ -34,7 +34,7 @@ const createProduct = router.post('/create-product', upload.array('file'), async
                     price: userData.price,
                     img: imageUrlArr,
                     makeVisibleToUser: makeVisibleToUser,
-                    stock : userData.stock
+                    stock : Number(userData.stock)
                 }
             });
             console.log(product);
