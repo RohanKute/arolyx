@@ -12,7 +12,8 @@ const { seeProductsAdmin } = require('./admin/apis/seeProducts');
 const { deleteProduct } = require('./admin/apis/deleteProduct');
 config();
 const PORT = 3000;
-const cors = require('cors')
+const cors = require('cors');
+const { getProduct } = require('./user/apis/getProduct');
 app.use(bodyParser.json());
 // app.use(express.json())
 app.listen(PORT, () => {
@@ -22,6 +23,7 @@ app.use(cors())
 app.use('/user/onboard', registerUser);
 app.use('/user/onboard', loginUser);
 app.use('/user', seeProductsUser);
+app.use('/user', getProduct)
 app.use('/admin' , createProduct);
 app.use('/admin' , updateProduct);
 app.use('/admin', seeProductsAdmin);

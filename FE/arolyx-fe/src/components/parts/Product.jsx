@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function Product({ product }) {
   return (
-    <div className="max-w-xs w-full bg-white border border-gray-200 shadow-lg m-3 flex flex-col rounded-lg overflow-hidden">
+    <div className="max-w-xs w-full border border-gray-200 shadow-sm  m-3 flex flex-col  overflow-hidden">
       <div className="h-64 overflow-hidden">
         <img className="w-full h-full object-cover" src={product.img[0].url} alt={product.name} />
       </div>
@@ -13,7 +13,7 @@ export default function Product({ product }) {
         </div>
         <div className="flex  justify-around">
           <p className="text-xl font-semibold text-gray-900 mb-2">&#8377; {product.price}</p>
-          <a href="/" className="w-2/4 text-center bg-yellow-300 text-black font-medium py-2 rounded-lg hover:bg-yellow-500 transition duration-300">
+          <a href={`/products/${product.id}`} className="w-2/4 text-center bg-yellow-300 text-black font-medium py-2 rounded-lg hover:bg-yellow-400 transition duration-300">
             View
           </a>
         </div>

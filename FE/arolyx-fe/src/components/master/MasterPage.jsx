@@ -2,6 +2,8 @@ import Footer from "../layout/Footer";
 import NavBar from "../layout/Navbar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ProductPage from "../pages/ProductPage";
+import ImageSlider from "../parts/ImageSlider";
+import ProductDetails from "../parts/ProductDetails";
 
 
 export default function MasterPage() {
@@ -16,6 +18,9 @@ export default function MasterPage() {
                         <Routes>
                             <Route path="/products" element={
                                 <ProductPage />
+                            } />
+                            <Route path="/products/:id" element={
+                                <ProductDetails />
                             } />
                         </Routes>
                     </Router>
