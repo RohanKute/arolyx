@@ -13,7 +13,17 @@ const getProduct = router.post('/get-product', async (req, res) => {
             }
         })
         if (product) {
-            return res.status(200).json(product)
+            if (product.img) {
+                const imgArr = product.img.map((image) => {
+                    return {
+                        url: image.url.replace('upload', 'upload/w_400'),
+                        publicId: image.publicId
+                    }
+                })
+
+                product.img = imgArr;
+            }
+            return res.status(200).json(product);
         }
         return res.status(404).json({
             messege: "not-found"
