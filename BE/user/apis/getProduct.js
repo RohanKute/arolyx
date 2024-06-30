@@ -16,7 +16,7 @@ const getProduct = router.post('/get-product', async (req, res) => {
             if (product.img) {
                 const imgArr = product.img.map((image) => {
                     return {
-                        url: image.url.replace('upload', 'upload/w_400'),
+                        url: image.url.replace('upload', 'upload/w_400,h_400'),
                         publicId: image.publicId
                     }
                 })
