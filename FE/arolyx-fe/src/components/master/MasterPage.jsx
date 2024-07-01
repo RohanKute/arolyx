@@ -13,8 +13,9 @@ export default function MasterPage() {
                 <div className='fixed top-0 w-full z-50'>
                     <NavBar />
                 </div>
-                <main className="container-m pt-16">
-                    <Router>
+                <main className="container-m pt-16 m-auto">
+                  <div className="flex justify-center">
+                     <Router>
                         <Routes>
                             <Route path="/products" element={
                                 <ProductPage />
@@ -24,6 +25,7 @@ export default function MasterPage() {
                             } />
                         </Routes>
                     </Router>
+                     </div>
                 </main>
                 <div className="sticky top-[100vh]">
                     <Footer />

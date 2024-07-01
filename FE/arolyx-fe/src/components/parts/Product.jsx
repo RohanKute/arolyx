@@ -13,8 +13,8 @@ export default function Product({ product }) {
         </div>
         <div className="flex  justify-around">
           <p className="text-xl font-semibold text-gray-900 mb-2">&#8377; {product.price}</p>
-          <a href={`/products/${product.id}`} className="w-2/4 text-center bg-yellow-300 text-black font-medium py-2 rounded-lg hover:bg-yellow-400 transition duration-300">
-            View
+          <a href={`/products/${product.id}`} className="w-2/4 text-center bg-amber-300 text-gray-800 text-base font-medium py-2 border shadow-sm hover:bg-amber-400 transition duration-300" >
+            VIEW
           </a>
         </div>
       </div>

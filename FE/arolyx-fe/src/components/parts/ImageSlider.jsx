@@ -12,7 +12,7 @@ export default function ImageSlider({ images }) {
   };
 
   return (
-    <div className="w-80 h-80 md:w-96 md:h-96 overflow-hidden relative">
+    <div className="w-80 h-80  md:w-[500px] md:h-[500px] overflow-hidden relative">
       {images.map((image, index) => (
         <img
           key={index}
