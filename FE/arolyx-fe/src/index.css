@@ -6,3 +6,18 @@
 .masterPage{
     background-image: radial-gradient(circle, #ffe9b0, #ffe5c6, #ffe7e2, #ffeef7, #fff6ff, #fef9ff, #fefcff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff);
 }
+
+/* Customize the color */
+#nprogress .bar {
+    background: #78350f; /* Blue color */
+  }
+  
+  /* Customize the height */
+  #nprogress .bar {
+    height: 3px;
+  }
+
+  #nprogress .spinner-icon {
+    border-top-color: #78350f;  /* Top border color */
+    border-left-color: #78350f; /* Left border color */
+  }

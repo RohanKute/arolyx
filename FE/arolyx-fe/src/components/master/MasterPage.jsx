@@ -9,13 +9,13 @@ import ProductDetails from "../parts/ProductDetails";
 export default function MasterPage() {
     return (
         <>
-            <div className="container-sm top-0 h-screen masterPage">
+        <Router>
+            <div className="container-sm top-0 h-screen">
                 <div className='fixed top-0 w-full z-50'>
                     <NavBar />
                 </div>
                 <main className="container-m pt-16 m-auto">
                   <div className="flex justify-center">
-                     <Router>
                         <Routes>
                             <Route path="/products" element={
                                 <ProductPage />
@@ -24,13 +24,13 @@ export default function MasterPage() {
                                 <ProductDetails />
                             } />
                         </Routes>
-                    </Router>
                      </div>
                 </main>
                 <div className="sticky top-[100vh]">
                     <Footer />
                 </div>
             </div>
+            </Router>
 
         </>
     )

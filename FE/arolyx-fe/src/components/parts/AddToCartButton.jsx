@@ -23,7 +23,7 @@ export default function AddToCartButton({product, quantity}){
         <>
            <button 
            onClick={handleOnClick}
-           className="w-full h-10  bg-amber-300 border shadow-sm hover:bg-amber-400   text-base font-medium text-gray-800">
+           className="w-full h-10  border-amber-700  text-gray-800 font-medium border shadow-sm  content-center hover:bg-amber-200  hover:border-none transition duration-300">
                  {buttonText}
              </button>
         </>

@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import ImageSlider from "./ImageSlider";
 import QuantityInput from "./QuantityInput";
 import AddToCartButton from "./AddToCartButton";
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
 
 export default function ProductDetails() {
     const [product, setProduct] = useState(null);
@@ -16,13 +18,15 @@ export default function ProductDetails() {
     useEffect(() => {
         const getProduct = async () => {
             try {
+                NProgress.start()
                 const responseProduct = await axios.post('http://localhost:3000/user/get-product', {
                     id: id
                 });
-                console.log(responseProduct.data.img);
                 setProduct(responseProduct.data);
+                NProgress.done()
             } catch (error) {
                 console.error("Error fetching product:", error);
+                NProgress.done()
             }
         };
 
@@ -52,7 +56,7 @@ export default function ProductDetails() {
                         {product.price}</p>
                 </div>
                 <div className="md:ml-2 mt-2 ">
-                    <QuantityInput onChangeQuantity={onChangeQuantity}/>
+                    <QuantityInput quantity={quantity} onChangeQuantity={onChangeQuantity}/>
                 </div>
                 <div className="md:ml-2 mt-2">
                      <AddToCartButton  product={product} quantity={quantity} />

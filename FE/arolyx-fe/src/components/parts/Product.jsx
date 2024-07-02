@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Product({ product }) {
   return (
@@ -13,9 +14,11 @@ export default function Product({ product }) {
         </div>
         <div className="flex  justify-around">
           <p className="text-xl font-semibold text-gray-900 mb-2">&#8377; {product.price}</p>
-          <a href={`/products/${product.id}`} className="w-2/4 text-center bg-amber-300 text-gray-800 text-base font-medium py-2 border shadow-sm hover:bg-amber-400 transition duration-300" >
-            VIEW
-          </a>
+          <div className="w-28 h-9  border-amber-700  text-gray-800 font-medium border shadow-sm text-center content-center hover:bg-amber-200  hover:border-none transition duration-300">
+            <Link to={`${product.id}`}  >
+              View
+            </Link>
+          </div>
         </div>
       </div>
     </div>
