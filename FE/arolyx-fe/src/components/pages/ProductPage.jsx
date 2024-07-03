@@ -14,8 +14,9 @@ export default function ProductPage() {
            try {
               NProgress.start()
               const productsResponse = await axios.get('http://localhost:3000/user/see-products');
+              console.log(productsResponse.data)
               if (productsResponse.data.products) {
-               setProductsAbsolute(productsResponse.data.products)
+                 setProductsAbsolute(productsResponse.data.products)
                  setProducts(productsResponse.data.products);
               }
               NProgress.done()
@@ -40,7 +41,7 @@ export default function ProductPage() {
    return (
       <>
 
-         <div className="block w-full justify-around items-center">
+      <div className="block w-full justify-around items-center md:mx-4">
          <div className="flex justify-center items-center">
             <p className="text-black-800 font-bold pt-2 text-2xl">Products</p>
          </div>

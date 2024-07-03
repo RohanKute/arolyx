@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 
 export default function Product({ product }) {
   return (
-    <div className="max-w-xs w-full border border-gray-200 shadow-sm  m-3 flex flex-col  overflow-hidden">
-      <div className="h-64 overflow-hidden">
+    <div className="max-w-xs w-72 border border-gray-200 shadow-sm m-3 flex flex-col overflow-hidden">
+      <div className=" w-72 h-72 overflow-hidden">
         <img className="w-full h-full object-cover" src={product.img[0].url} alt={product.name} />
       </div>
       <div className="p-4 flex flex-col  justify-around flex-grow">
@@ -14,7 +14,7 @@ export default function Product({ product }) {
         </div>
         <div className="flex  justify-around">
           <p className="text-xl font-semibold text-gray-900 mb-2">&#8377; {product.price}</p>
-          <div className="w-28 h-9  border-amber-700  text-gray-800 font-medium border shadow-sm text-center content-center hover:bg-amber-200  hover:border-none transition duration-300">
+          <div className="w-28 h-9  border-amber-900  text-gray-800 font-medium border shadow-sm text-center content-center hover:bg-amber-200  hover:border-none transition duration-300">
             <Link to={`${product.id}`}  >
               View
             </Link>

@@ -40,16 +40,16 @@ export default function ProductDetails() {
     }
 
     return (
-        <div className="flex flex-col max-w-5xl items-start sm:flex-row sm:justify-center border  shadow-sm shadow-slate-50 rounded-2xl bg-white px-5 py-5 m-4">
-            <div className="border border-gray-300 shadow-sm">
+        <div className="flex flex-col max-w-5xl items-start sm:flex-row sm:justify-center border border-opacity-25 border-amber-900  shadow-sm shadow-slate-50  bg-white px-5 py-5 m-4">
+            <div>
                 <ImageSlider images={product.img} />
             </div>
             <div className="flex flex-col h-full max-w-80 min-w-80 md:ml-4 ">
                 <div className="md:ml-2">
                     <h1 className="capitalize  font-semibold text-black text-3xl">{product.name}</h1>
                 </div>
-                <div className="md:h-5/6">
-                    <p className="mt-2 md:ml-2 text-slate-500">{product.description}</p>
+                <div className="md:h-80">
+                    <p className="mt-2 md:ml-2 text-slate-500">{product.description.substring(0,100)}</p>
                 </div>
                 <div>
                     <p className="mt-2 md:ml-2 text-gray-900 font-semibold text-2xl"><span>&#8377; </span>

@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ProductPage from "../pages/ProductPage";
 import ImageSlider from "../parts/ImageSlider";
 import ProductDetails from "../parts/ProductDetails";
+import Login from "../pages/Login";
+import Signup from "../pages/Signup";
 
 
 export default function MasterPage() {
@@ -23,6 +25,10 @@ export default function MasterPage() {
                             <Route path="/products/:id" element={
                                 <ProductDetails />
                             } />
+                            <Route path='/login' element={
+                                <Login/>}/>
+                            <Route path='/signup' element={
+                                <Signup/>}/>
                         </Routes>
                      </div>
                 </main>
