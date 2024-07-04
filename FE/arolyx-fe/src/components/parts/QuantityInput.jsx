@@ -5,11 +5,10 @@ export default function QuantityInput({quantity, onChangeQuantity}) {
     const checkIfNumberAndSet = (e) => {
         e.preventDefault();
         const value = e.target.value.trim(); 
-        
         if (value === "") {
             onChangeQuantity(0); 
         } else if (!isNaN(value)) {
-            onChangeQuantity(parseInt(value)); // Update quantity if the value is a valid number
+            onChangeQuantity(parseInt(value)); 
         }
     };
 

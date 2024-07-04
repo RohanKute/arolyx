@@ -10,6 +10,7 @@ const registerUser = router.post('/register', async(req, res) => {
     try {
         const userData = req.body;
         const user = await register(userData);
+        console.log(user)
         if (!user.error) {
             const token = jwt.sign({ number: String(user.number) }, jwtSecret, { expiresIn: '72h' })
             console.log(token)
@@ -21,7 +22,8 @@ const registerUser = router.post('/register', async(req, res) => {
             }
         }
         return res.json({
-            messege: user.error
+            messege: user.error,
+            error: true
         })
     } catch (error) {
         console.log(error);
@@ -46,11 +48,15 @@ const register = async (userData) => {
             return user;
         }
     } catch (error) {
+        console.log(error)
         if(error instanceof Prisma.PrismaClientKnownRequestError){
             if(error.code == 'P2002'){
                  return {
                     error : "number-already-registred"
                  }
+            }
+            return {
+                error : 'internal-server-error-try-again-later'
             }
         }
     }
