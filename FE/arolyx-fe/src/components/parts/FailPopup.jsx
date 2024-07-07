@@ -1,15 +1,18 @@
 import { usePopup } from "../../context/popupContext";
 
-export default function SuccessPopup() {
+export default function FailPopup() {
   const { popup, setPopup } = usePopup();
 
   const handleClose = () => {
     setPopup({ ...popup, text: '', messege: '' }); // Optionally clear the popup state
   };
-
+  
+  const formatMessage = (message) => {
+    return message.split('-').join(' ');
+  };
   return (
     <>
-      <div className="relative w-96 h-10 z-40 m-auto rounded-sm bg-green-300 bg-opacity-30 text-center flex items-center justify-center  p-4 ">
+      <div className="relative w-96 h-10 z-40 m-auto rounded-sm bg-red-500 bg-opacity-50 text-center flex items-center justify-center  p-4 ">
         <div className="absolute top-2 right-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -24,7 +27,7 @@ export default function SuccessPopup() {
           </svg>
         </div>
         <div>
-          <h1 className=" text-base text-gray-800 font-semibold">{popup.text}</h1>
+          <h1 className=" text-base text-gray-800 font-semibold capitalize">{formatMessage(popup.text)}</h1>
         </div>
       </div>
     </>
