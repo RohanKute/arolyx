@@ -14,8 +14,9 @@ config();
 const PORT = 3000;
 const cors = require('cors');
 const { getProduct } = require('./user/apis/getProduct');
+const { chechAuth } = require('./user/apis/checkAuth');
+const { addToCart } = require('./user/apis/addToCart');
 app.use(bodyParser.json());
-// app.use(express.json())
 app.listen(PORT, () => {
       console.log('Server Started on port: 3000')
 })
@@ -24,6 +25,8 @@ app.use('/user/onboard', registerUser);
 app.use('/user/onboard', loginUser);
 app.use('/user', seeProductsUser);
 app.use('/user', getProduct)
+app.use('/user', addToCart)
+app.use('/user', chechAuth)
 app.use('/admin' , createProduct);
 app.use('/admin' , updateProduct);
 app.use('/admin', seeProductsAdmin);

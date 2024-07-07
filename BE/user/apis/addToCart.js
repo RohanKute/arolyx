@@ -8,8 +8,10 @@ const prisma = new PrismaClient();
 
 const addToCart = router.post('/add-to-cart', verifyLogin, async(req, res)=>{
     try {
-        const userNumber = handleJwtToken.verifyLogin(req.headers.authorization).number;
-        const productId = req.body.id;
+        const userNumber = handleJwtToken().verifyJwtToken(req.headers.authorization).number;
+        const productId = req.body.product.id;
+        const quantity = req.body.quantity;
+        console.log(quantity)
         const userId = await prisma.user.findUnique({
              where:{
                  number: userNumber
@@ -18,25 +20,30 @@ const addToCart = router.post('/add-to-cart', verifyLogin, async(req, res)=>{
                  id: true
              }
         });
-        if(userId && productId){
+
+        if(userId.id && productId){
             const productInCart = await prisma.cartProducts.create({
                 data:{
                     productId : productId,
-                    userId: userId
+                    userId: userId.id,
+                    quantity : Number(quantity)
                 }
            })
            if(productInCart){
-               res.status(200).json({
-                   messege: "product-add-success"
+               return res.status(200).json({
+                   messege: "success"
                })
            }
         }
-        res.status(400).json({
-            messege : "product-not-found[product-id-may-be-incorrect]"
+        return res.status(400).json({
+            messege : "product-not-found, product-id-may-be-incorrect"
         })
     } catch (error) {
+        console.log(error)
         res.status(500).json({
              messege: "internal-server-error"
         })
     }
 })
+
+module.exports ={addToCart }
