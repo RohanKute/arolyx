@@ -10,7 +10,7 @@ function handleJwtToken() {
       const decoded = jwt.verify(token, jwtSecret);
       return decoded
     } catch (error) {
-      return;
+      return error;
     }
   }
   return {

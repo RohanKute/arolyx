@@ -16,6 +16,7 @@ const cors = require('cors');
 const { getProduct } = require('./user/apis/getProduct');
 const { chechAuth } = require('./user/apis/checkAuth');
 const { addToCart } = require('./user/apis/addToCart');
+const { getUserCart } = require('./user/apis/getUserCart');
 app.use(bodyParser.json());
 app.listen(PORT, () => {
       console.log('Server Started on port: 3000')
@@ -27,6 +28,7 @@ app.use('/user', seeProductsUser);
 app.use('/user', getProduct)
 app.use('/user', addToCart)
 app.use('/user', chechAuth)
+app.use('/user', getUserCart)
 app.use('/admin' , createProduct);
 app.use('/admin' , updateProduct);
 app.use('/admin', seeProductsAdmin);

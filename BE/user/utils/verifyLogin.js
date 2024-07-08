@@ -10,7 +10,6 @@ function verifyLogin(req, res, next){
             messege : "login-required"
         })
     } catch (error) {
-        console.log(error)
         res.json(500).json({
             messege : "internal-server-error"
         })
