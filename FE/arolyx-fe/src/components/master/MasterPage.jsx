@@ -11,6 +11,7 @@ import { axiosInstance } from "../../utils/axiosInstance";
 import { PopupContextProvider, usePopup } from "../../context/popupContext";
 import SuccessPopup from "../parts/SuccessPopup";
 import FailPopup from "../parts/FailPopup";
+import CartPage from "../pages/CartPage";
 
 
 export default function MasterPage() {
@@ -59,8 +60,15 @@ export default function MasterPage() {
                                                 <Login />} />
                                             <Route path='/signup' element={
                                                 <Signup />} />
+                                            <Route path='/cart' element={
+                                                <CartPage />} />
                                         </Routes>
                                     </div>
+                                    {/* <div> */}
+                                        {/* <CartProduct/> */}
+                                        {/* <Checkout/> */}
+                                    {/* </div> */}
+
                                 </main>
                                 <div className="sticky top-[100vh]">
                                     <Footer />

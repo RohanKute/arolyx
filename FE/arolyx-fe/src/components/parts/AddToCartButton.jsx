@@ -3,9 +3,9 @@ import { axiosInstance } from "../../utils/axiosInstance";
 import { usePopup } from "../../context/popupContext";
 
 export default function AddToCartButton({ product, quantity }) {
-   const [buttonText, setButtonText] = useState("ADD TO CART");
+   const [buttonText, setButtonText] = useState("Add to Cart");
    const { popup, setPopup } = usePopup();
-
+   console.log(quantity)
    const handleOnClick = async () => {
       try {
          if (!localStorage.getItem('token')) {
@@ -26,13 +26,14 @@ export default function AddToCartButton({ product, quantity }) {
                text: `Quantity should be more than 0`,
                messege: 'fail'
             });
+            return
          }
          if (addToCartResponse.data.messege === 'success') {
             setPopup({
                text: `${quantity} Product(s) added successfully`,
                messege: 'success'
             });
-            setButtonText('ADDED TO CART(ADD MORE!)');
+            setButtonText('Add to Cart(Add More!)');
          }
       } catch (error) {
          setPopup({
@@ -46,7 +47,7 @@ export default function AddToCartButton({ product, quantity }) {
       <>
          <button
             onClick={handleOnClick}
-            className="w-full h-10 border-amber-900 text-gray-800 font-medium border shadow-sm content-center hover:bg-amber-200 hover:border-none transition duration-300"
+            className="w-full h-10 border-yellow-300 bg-yellow-300 rounded-lg text-gray-900 font-medium border shadow-sm content-center hover:bg-yellow-400 hover:border-none transition duration-300"
          >
             {buttonText}
          </button>

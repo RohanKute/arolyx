@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 export default function QuantityInput({quantity, onChangeQuantity}) {
-
+    console.log(quantity)
     const checkIfNumberAndSet = (e) => {
         e.preventDefault();
         const value = e.target.value.trim(); 

@@ -12,12 +12,12 @@ export default function ImageSlider({ images }) {
   };
 
   return (
-    <div className="w-80 h-80  md:w-[500px] md:h-[500px] overflow-hidden relative">
+    <div className="w-80 h-80  md:w-[499px] md:h-[499px] overflow-hidden  relative ">
       {images.map((image, index) => (
         <img
           key={index}
           src={image.url}
-          className={`bg-contain absolute inset-0 transition-opacity duration-700 ease-in-out ${
+          className={`absolute inset-0 transition-opacity duration-700 rounded-t-lg   md:rounded-tr-none md:rounded-l-lg ease-in-out ${
             index === currIndex ? "opacity-100" : "opacity-0"
           }`}
           alt=""
