@@ -29,7 +29,6 @@ const getProduct = router.post('/get-product', async (req, res) => {
             messege: "not-found"
         })
     } catch (error) {
-        console.log(error)
         return res.status(500).json({
             messege: "internal-server-error"
         })

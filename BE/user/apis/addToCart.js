@@ -11,7 +11,6 @@ const addToCart = router.post('/add-to-cart', verifyLogin, async(req, res)=>{
         const userNumber = handleJwtToken().verifyJwtToken(req.headers.authorization).number;
         const productId = req.body.product.id;
         const quantity = req.body.quantity;
-        console.log(quantity)
         const userId = await prisma.user.findUnique({
              where:{
                  number: userNumber
@@ -39,7 +38,6 @@ const addToCart = router.post('/add-to-cart', verifyLogin, async(req, res)=>{
             messege : "product-not-found, product-id-may-be-incorrect"
         })
     } catch (error) {
-        console.log(error)
         res.status(500).json({
              messege: "internal-server-error"
         })

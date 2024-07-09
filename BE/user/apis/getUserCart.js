@@ -7,7 +7,6 @@ const prisma = new PrismaClient();
 
 
 const getUserCart = router.get('/get-cart' ,verifyLogin, async(req, res)=>{
-       console.log("kjshfjk")
        try {
            const number = await handleJwtToken().verifyJwtToken(req.headers.authorization).number;
            if(number){
@@ -40,8 +39,7 @@ const getUserCart = router.get('/get-cart' ,verifyLogin, async(req, res)=>{
              messege : "internal-server-error"
         })
        } catch (error) {
-          console.log(error)
-          return res.json(500).json({
+           res.json(500).json({
             messege : "internal-server-error"
        })
        }
