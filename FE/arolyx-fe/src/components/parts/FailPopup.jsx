@@ -12,7 +12,7 @@ export default function FailPopup() {
   };
   return (
     <>
-      <div className="relative w-96 h-10 z-40 m-auto rounded-sm bg-red-500 bg-opacity-50 text-center flex items-center justify-center  p-4 ">
+      <div className="relative w-96 h-10 z-40 m-auto rounded-sm bg-red-300 bg-opacity-100 text-center flex items-center justify-center  p-4 ">
         <div className="absolute top-2 right-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"

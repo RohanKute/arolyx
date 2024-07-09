@@ -5,18 +5,29 @@ import Checkout from "../parts/Checkout";
 import img from '../../assets/logo.png';
 import { useEffect, useState } from "react";
 import { axiosInstance } from "../../utils/axiosInstance";
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
 
 
 export default function CartPage() {
     const { isAuth, setIsAuth } = useAuth();
     const [userCart , setUserCart] = useState([]);
+
+    const handleRemovedItem = (id)=>{
+        if(userCart.length){
+            const newCart = userCart.filter((item)=> item.id !== id);
+            setUserCart(newCart)
+        }
+    } 
     useEffect(() => {
         const getCart = async () => {
             try {
+                NProgress.start()
                 const responseUserCart = await axiosInstance.get('http://localhost:3000/user/get-cart');
                 setUserCart(responseUserCart.data);
+                NProgress.done()
         } catch (error) {
-
+           console.log(error);
        }
         }
         getCart()
@@ -31,11 +42,11 @@ export default function CartPage() {
                 <div className="flex flex-col md:flex-row">
                     <div className="m-3">
                         {userCart.map((cartItem)=>{
-                              return <CartProduct key={cartItem.id}  cartItem={cartItem}/>
+                              return <CartProduct key={cartItem.id}  handleRemovedItem={handleRemovedItem} cartItem={cartItem}/>
                         })}
                     </div>
                     <div className="m-3">
-                        <Checkout />
+                        <Checkout userCart={userCart}  />
                     </div>
                 </div>
             </div>

@@ -1,24 +1,43 @@
-export default function Checkout() {
-    return (
-      <div className="w-96 h-600px flex flex-col m-0 border rounded-lg bg-white p-4 shadow-lg">
-        <div className="mb-4">
-          <h1 className="text-xl font-bold">Cart Total</h1>
-        </div>
-        <div className="flex justify-between items-center mb-4">
-          <p>Subtotal:</p>
-          <p className="font-semibold">₹1499.99</p>
-        </div>
-        <div className="flex justify-between items-center mb-6">
-          <p>Total:</p>
-          <p className="font-bold text-lg">₹1499.99</p>
-        </div>
-        <button className="bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600">
-          Order on WhatsApp
-        </button>
-        <p className="text-xs mt-2 text-gray-500">
-          You can always change quantity and products via WhatsApp.
-        </p>
-      </div>
-    );
-  }
+import { useEffect, useState } from "react";
+
+export default function Checkout({ userCart }) {
+  const [total, setTotal] = useState(0);
   
+  const getWhatsappUrl = ()=>{
+      const arolyxcontact = '+919767802672'
+      let messege = "Hi Arolyx Team, I want to order:\n"
+      userCart.forEach((item, index) => {
+            messege+= `${index+1}) ${item.quantity} piece(s) of ${item.product.name},\n`
+      });
+      const url = `https://wa.me/${arolyxcontact}?text=${encodeURIComponent(messege)}`
+      return url;
+  }
+  useEffect(() => {
+    let calTotal = 0;
+    for (let i = 0; i < userCart.length; i++) {
+      calTotal += parseInt(userCart[i].product.price) * parseFloat(userCart[i].quantity);
+    }
+    setTotal(calTotal)
+  }, [userCart])
+  return (
+    <div className="w-96 h-600px flex flex-col m-0 border rounded-lg bg-white p-4 shadow-lg">
+      <div className="mb-4">
+        <h1 className="text-xl font-bold">Cart Total</h1>
+      </div>
+      <div className="flex justify-between items-center mb-4">
+        <p>Subtotal:</p>
+        <p className="font-semibold">₹{total}</p>
+      </div>
+      <div className="flex justify-between items-center mb-6">
+        <p>Total:</p>
+        <p className="font-bold text-lg">₹{total}</p>
+      </div>
+      <a href={getWhatsappUrl()} target="_blank"className="bg-green-500 text-white py-2  text-center px-4 rounded-md hover:bg-green-600">
+        Order on WhatsApp 
+      </a>
+      <p className="text-xs mt-2 text-gray-500">
+        You can always change quantity and products via WhatsApp.
+      </p>
+    </div>
+  );
+}
