@@ -7,9 +7,14 @@ function handleJwtToken() {
   }
   function verifyJwtToken(token) {
     try {
-      const decoded = jwt.verify(token, jwtSecret);
-      return decoded
+        if(token){
+          const decoded = jwt.verify(token, jwtSecret);
+          if(token){
+             return decoded
+          }
+        }
     } catch (error) {
+      console.log(error)
       return error;
     }
   }

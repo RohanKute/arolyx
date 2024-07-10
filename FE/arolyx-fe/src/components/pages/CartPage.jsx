@@ -7,31 +7,39 @@ import { useEffect, useState } from "react";
 import { axiosInstance } from "../../utils/axiosInstance";
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
+import { usePopup } from "../../context/popupContext";
 
 
 export default function CartPage() {
     const { isAuth, setIsAuth } = useAuth();
-    const [userCart , setUserCart] = useState([]);
+    const [userCart, setUserCart] = useState([]);
+    const { popup, setPopup } = usePopup();
 
-    const handleRemovedItem = (id)=>{
-        if(userCart.length){
-            const newCart = userCart.filter((item)=> item.id !== id);
+    const handleRemovedItem = (id) => {
+        if (userCart.length) {
+            const newCart = userCart.filter((item) => item.id !== id);
             setUserCart(newCart)
         }
-    } 
+    }
     useEffect(() => {
         const getCart = async () => {
+            NProgress.start()
             try {
-                NProgress.start()
-                const responseUserCart = await axiosInstance.get('http://localhost:3000/user/get-cart');
-                setUserCart(responseUserCart.data);
-                NProgress.done()
-        } catch (error) {
-           console.log(error);
-       }
+                const responseUserCart = await axiosInstance.get('/get-cart');
+                if(responseUserCart?.data){
+                    setUserCart(responseUserCart.data);
+                }
+            } catch (error) {
+                console.log("error")
+                setPopup({
+                    text: "Error fetching cart, (try later!)",
+                    messege: "fail"
+                })
+            }
+            NProgress.done()
         }
         getCart()
-    },[])
+    }, [])
 
     if (isAuth) {
         return (<>
@@ -41,12 +49,12 @@ export default function CartPage() {
                 </div>
                 <div className="flex flex-col md:flex-row">
                     <div className="m-3">
-                        {userCart.map((cartItem)=>{
-                              return <CartProduct key={cartItem.id}  handleRemovedItem={handleRemovedItem} cartItem={cartItem}/>
+                        {userCart.map((cartItem) => {
+                            return <CartProduct key={cartItem.id} handleRemovedItem={handleRemovedItem} cartItem={cartItem} />
                         })}
                     </div>
                     <div className="m-3">
-                        <Checkout userCart={userCart}  />
+                        <Checkout userCart={userCart} />
                     </div>
                 </div>
             </div>

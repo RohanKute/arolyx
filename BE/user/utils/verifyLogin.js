@@ -1,17 +1,23 @@
 const { handleJwtToken } = require("./handleJwtToken");
 
 
-function verifyLogin(req, res, next){
+function verifyLogin(req, res, next) {
     try {
-        const jwtToken = handleJwtToken().verifyJwtToken(req.headers.authorization);
-        if(jwtToken.number){
-            next();
-        } else res.status(301).json({
-            messege : "login-required"
-        })
+        if(req.headers?.authorization){
+            const jwtToken = handleJwtToken().verifyJwtToken(req.headers.authorization);
+            if (jwtToken?.number) {
+                 next();
+            } else {
+                 return res.status(301).json({
+                    messege: "login-required"
+                })
+            }
+        }
+
     } catch (error) {
-        res.json(500).json({
-            messege : "internal-server-error"
+        console.log(error)
+        return res.json(500).json({
+            messege: "internal-server-error"
         })
     }
 }

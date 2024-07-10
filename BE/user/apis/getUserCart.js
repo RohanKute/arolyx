@@ -6,9 +6,9 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 
-const getUserCart = router.get('/get-cart' ,verifyLogin, async(req, res)=>{
+const getUserCart = router.get('/get-cart' , verifyLogin, async(req, res)=>{
        try {
-           const number = await handleJwtToken().verifyJwtToken(req.headers.authorization).number;
+           const number = await handleJwtToken().verifyJwtToken(req.headers.authorization)?.number;
            if(number){
             const cartProduct = await prisma.user.findUnique({
                 where: {
@@ -33,13 +33,17 @@ const getUserCart = router.get('/get-cart' ,verifyLogin, async(req, res)=>{
               if(cartProduct.cartProduct.length){
                 return res.status(200).json(cartProduct.cartProduct);
               }
-            return res.status(200).json([]);
+            return res.status(200).json([{
+                messege : "could not verify user"
+            }]);
            }
-        return res.json(200).json({
+        return res.status(500).json({
              messege : "internal-server-error"
         })
+
        } catch (error) {
-           res.json(500).json({
+           console.log(error)
+           return res.status(500).json({
             messege : "internal-server-error"
        })
        }

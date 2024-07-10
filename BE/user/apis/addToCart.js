@@ -8,9 +8,9 @@ const prisma = new PrismaClient();
 
 const addToCart = router.post('/add-to-cart', verifyLogin, async(req, res)=>{
     try {
-        const userNumber = handleJwtToken().verifyJwtToken(req.headers.authorization).number;
-        const productId = req.body.product.id;
-        const quantity = req.body.quantity;
+        const userNumber = handleJwtToken().verifyJwtToken(req.headers.authorization)?.number;
+        const productId = req.body?.product.id;
+        const quantity = req.body?.quantity;
         const userId = await prisma.user.findUnique({
              where:{
                  number: userNumber
@@ -38,7 +38,7 @@ const addToCart = router.post('/add-to-cart', verifyLogin, async(req, res)=>{
             messege : "product-not-found, product-id-may-be-incorrect"
         })
     } catch (error) {
-        res.status(500).json({
+        return res.status(500).json({
              messege: "internal-server-error"
         })
     }
