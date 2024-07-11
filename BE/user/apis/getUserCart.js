@@ -4,11 +4,12 @@ const { handleJwtToken } = require('../utils/handleJwtToken');
 const router = express.Router();
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
+const jwtSecret = process.env.JWT_SECRET;
 
 
-const getUserCart = router.get('/get-cart' , verifyLogin, async(req, res)=>{
+const getUserCart = router.get('/get-cart', verifyLogin, async (req, res)=>{
        try {
-           const number = await handleJwtToken().verifyJwtToken(req.headers.authorization)?.number;
+           const number = handleJwtToken().verifyJwtToken(req.headers.authorization, jwtSecret)?.number;
            if(number){
             const cartProduct = await prisma.user.findUnique({
                 where: {
@@ -33,9 +34,7 @@ const getUserCart = router.get('/get-cart' , verifyLogin, async(req, res)=>{
               if(cartProduct.cartProduct.length){
                 return res.status(200).json(cartProduct.cartProduct);
               }
-            return res.status(200).json([{
-                messege : "could not verify user"
-            }]);
+            return res.status(200).json([]);
            }
         return res.status(500).json({
              messege : "internal-server-error"

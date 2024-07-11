@@ -2,26 +2,24 @@ const jwt = require('jsonwebtoken');
 const jwtSecret = process.env.JWT_SECRET;
 
 function handleJwtToken() {
-  function setJwtToken(email) {
+  function setJwtToken(email, jwtSecret) {
     return jwt.sign({ email }, jwtSecret, { expiresIn: '24h' });
   }
-  function verifyJwtToken(token) {
+
+  function verifyJwtToken(token, jwtSecret) {
     try {
-        if(token){
-          const decoded = jwt.verify(token, jwtSecret);
-          if(token){
-             return decoded
-          }
-        }
+      const decoded = jwt.verify(token, jwtSecret);
+      return decoded;
     } catch (error) {
-      console.log(error)
-      return error;
+      console.log(error);
+      return null; 
     }
   }
+
   return {
     setJwtToken,
     verifyJwtToken
   };
 }
 
-module.exports = {handleJwtToken}
+module.exports = { handleJwtToken };

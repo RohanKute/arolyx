@@ -20,6 +20,7 @@ export default function MasterPage() {
 
   useEffect(() => {
     const checkAuth = async () => {
+      localStorage.removeItem('admin-token');
       const authStatus = await axiosInstance.post('/auth');
       console.log(authStatus);
       if (authStatus.data.messege === "auth-success") {

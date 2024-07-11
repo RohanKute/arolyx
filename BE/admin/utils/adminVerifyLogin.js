@@ -1,11 +1,11 @@
-const { handleJwtToken } = require("./handleJwtToken");
-const jwtSecret = process.env.JWT_SECRET;
+const { handleJwtToken } = require("../../user/utils/handleJwtToken");
+const jwtSecret = process.env.ADMIN_JWT;
 
-function verifyLogin(req, res, next) {
+function adminVerifyLogin(req, res, next) {
     try {
         if (req?.headers?.authorization) {
-            const jwtToken = handleJwtToken().verifyJwtToken(req.headers.authorization, jwtSecret);
-            if (jwtToken?.number) {
+            const jwtToken = handleJwtToken().verifyJwtToken(req.headers.authorization,jwtSecret);
+            if (jwtToken?.id) {
                 next();
             } else {
                 return res.status(401).json({
@@ -25,4 +25,4 @@ function verifyLogin(req, res, next) {
     }
 }
 
-module.exports = { verifyLogin };
+module.exports = { adminVerifyLogin };

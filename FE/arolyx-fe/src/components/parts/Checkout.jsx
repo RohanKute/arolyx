@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 export default function Checkout({ userCart }) {
   const [total, setTotal] = useState(0);
-  
+
   const getWhatsappUrl = ()=>{
       const arolyxcontact = '+919767802672'
       let messege = "Hi Arolyx Team, I want to order:\n"

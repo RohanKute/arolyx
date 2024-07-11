@@ -18,6 +18,8 @@ const { chechAuth } = require('./user/apis/checkAuth');
 const { addToCart } = require('./user/apis/addToCart');
 const { getUserCart } = require('./user/apis/getUserCart');
 const { removeCartItem } = require('./user/apis/removeCartItem');
+const { adminLogin } = require('./admin/apis/adminLogin');
+const { adminAuth } = require('./admin/apis/adminAuth');
 app.use(bodyParser.json());
 app.listen(PORT, () => {
       console.log('Server Started on port: 3000')
@@ -35,3 +37,5 @@ app.use('/admin' , createProduct);
 app.use('/admin' , updateProduct);
 app.use('/admin', seeProductsAdmin);
 app.use('/admin', deleteProduct);
+app.use('/admin', adminLogin);
+app.use('/admin', adminAuth)

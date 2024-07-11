@@ -4,11 +4,12 @@ const {PrismaClient}= require('@prisma/client');
 const { verifyLogin } = require('../utils/verifyLogin');
 const { handleJwtToken } = require('../utils/handleJwtToken');
 const prisma = new PrismaClient();
+const jwtSecret = process.env.JWT_SECRET;
 
 
 const addToCart = router.post('/add-to-cart', verifyLogin, async(req, res)=>{
     try {
-        const userNumber = handleJwtToken().verifyJwtToken(req.headers.authorization)?.number;
+        const userNumber = handleJwtToken().verifyJwtToken(req.headers.authorization, jwtSecret)?.number;
         const productId = req.body?.product.id;
         const quantity = req.body?.quantity;
         const userId = await prisma.user.findUnique({

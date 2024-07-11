@@ -4,11 +4,12 @@ const { verifyLogin } = require('../utils/verifyLogin');
 const { handleJwtToken } = require('../utils/handleJwtToken');
 const router = express.Router();
 const prisma = new PrismaClient();
+const jwtSecret = process.env.JWT_SECRET;
 
 
 const removeCartItem = router.post('/remove-cart-item', verifyLogin, async(req, res)=>{
       try {
-          const number = handleJwtToken().verifyJwtToken(req.headers.authorization).number;
+          const number = handleJwtToken().verifyJwtToken(req.headers.authorization, jwtSecret).number;
           const userId = await prisma.user.findUnique({
               where:{
                   number : Number(number)
