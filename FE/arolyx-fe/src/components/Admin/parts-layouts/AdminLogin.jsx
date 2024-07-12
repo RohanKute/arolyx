@@ -25,7 +25,7 @@ export default function AdminLogin() {
             const token = response?.data?.token;
             console.log(token)
             localStorage.setItem('admin-token' , token);
-            setIsAdminAuth({
+            setAdminPopup({
                  text: 'Login Success',
                  messege : 'success'
             })

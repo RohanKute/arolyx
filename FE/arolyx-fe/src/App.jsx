@@ -11,7 +11,7 @@ function App() {
         <div>
           <Router>
             <Routes>
-              <Route path="/admin" element={<AdminMaster />} />
+              <Route path="/admin/*" element={<AdminMaster />} />
             </Routes>
           </Router>
         </div>

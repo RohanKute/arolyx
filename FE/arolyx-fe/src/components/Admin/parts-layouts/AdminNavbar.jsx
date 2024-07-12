@@ -13,7 +13,10 @@ export default function AdminNavbar() {
 
     const handleLogout = () => {
         setIsAdminAuth(false);
-        setIsMenuOpen(false); // Close the menu after logout
+        setIsMenuOpen(false); 
+        localStorage.clear()
+        history.go('/admin')
+
     };
 
     return (
