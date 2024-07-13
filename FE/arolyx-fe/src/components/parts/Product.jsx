@@ -5,7 +5,7 @@ export default function Product({ product }) {
   return (
     <div className="max-w-xs w-full border border-gray-200 shadow-lg m-3 flex flex-col overflow-hidden rounded-lg transition transform hover:-translate-y-1 hover:shadow-xl duration-300 bg-white">
       <div className="w-full h-72 overflow-hidden">
-        <img className="w-full h-full object-cover" src={product.img[0].url} alt={product.name} />
+        <img className="w-full h-full object-cover" src={product?.img[0]?.url} alt={product.name} />
       </div>
       <div className="p-4 flex flex-col justify-between flex-grow">
         <div className="mb-4">

@@ -38,7 +38,6 @@ export default function MasterPage() {
       <>
         <PopupContextProvider value={{ popup, setPopup }}>
           <AuthProvider value={{ isAuth, setIsAuth }}>
-            <Router>
               <div className="container-sm top-0 h-screen">
                 <div className='fixed top-0 w-full z-50'>
                   <NavBar />
@@ -69,7 +68,6 @@ export default function MasterPage() {
                   <Footer />
                 </div>
               </div>
-            </Router>
           </AuthProvider>
         </PopupContextProvider>
       </>

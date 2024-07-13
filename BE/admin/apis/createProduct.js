@@ -17,7 +17,7 @@ const createProduct = router.post('/create-product', upload.array('file'), async
         for (const image of req.files) {
             const buffer = parser.format('.png', image.buffer);
             const uploadResult = await cloudinary.v2.uploader.upload(buffer.content, { folder: "arolyx" });
-            if (uploadResult.url) {
+            if (uploadResult?.url) {
                 const obj = {
                     url: uploadResult.url,
                     publicId: uploadResult.public_id
@@ -25,7 +25,7 @@ const createProduct = router.post('/create-product', upload.array('file'), async
                 imageUrlArr.push(obj);
             }
         }
-        const makeVisibleToUser = (userData.makeVisibleToUser === 'true')
+        const makeVisibleToUser = (userData.makeVisibleToUser === 'on')
         if (userData) {
             const product = await prisma.product.create({
                 data: {

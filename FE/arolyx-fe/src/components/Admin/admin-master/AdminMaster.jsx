@@ -60,9 +60,9 @@ export default function AdminMaster() {
                             {/* {adminPopup.messege === 'fail' && <FailPopup />} */}
                         </>
                     )}
-                    <main className="container-m w-full pt-16 m-auto">
+                    <main className="container-m w-full mt-4">
                         {!isAdminAuth ? (
-                            <div className="flex justify-center">
+                            <div className="flex  justify-center">
                                 <AdminLogin />
                             </div>
                         ) : (

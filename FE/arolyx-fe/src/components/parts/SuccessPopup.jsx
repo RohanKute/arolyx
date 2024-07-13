@@ -2,7 +2,7 @@ import { usePopup } from "../../context/popupContext";
 
 export default function SuccessPopup() {
   const { popup, setPopup } = usePopup();
-
+  
   const handleClose = () => {
     setPopup({ ...popup, text: '', messege: '' }); // Optionally clear the popup state
   };
