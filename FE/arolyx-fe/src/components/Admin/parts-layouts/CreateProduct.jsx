@@ -23,7 +23,7 @@ export default function CreateProduct() {
       <div>
         <form onSubmit={handleSubmit} encType="multipart/form-data">
           <div className="flex flex-col gap-4 p-5">
-            <h1 className="text-center text-3xl ml-4 font-bold text-amber-900">Create Product</h1>
+            <h1 className="text-start text-3xl ml-4 font-bold text-amber-900">Create Product</h1>
             <div className='flex flex-col md:flex-row'>
               <div>
                 <div className="m-auto p-2">
