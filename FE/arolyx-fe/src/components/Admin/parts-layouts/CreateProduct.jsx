@@ -2,20 +2,32 @@ import { useState } from 'react';
 import axios from 'axios';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
+import { useAdminPopup } from '../../../context/admin-context/adminPopupContext';
 
 export default function CreateProduct() {
+  const {adminPopup , setAdminPopup} = useAdminPopup();
+  const [isLoading, setIsLoading] = useState();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setIsLoading(true);
+    NProgress.start()
     try {
       const formData = new FormData(e.target);
       const response = await axios.post('http://localhost:3000/admin/create-product', formData);
-      console.log('Response:', response.data);
-      // Optionally, handle success behavior here (e.g., show success message)
+      if(response.data.code === 0){
+        setAdminPopup({
+          text : 'Product Added Succesfully',
+          messege : 'success'
+       })
+      } 
+      e.target.reset();     
     } catch (error) {
       console.error('Error:', error);
-      // Optionally, handle error behavior here (e.g., show error message)
     }
+    setIsLoading(false);
+
+    NProgress.done()
   };
 
   return (
@@ -23,7 +35,7 @@ export default function CreateProduct() {
       <div>
         <form onSubmit={handleSubmit} encType="multipart/form-data">
           <div className="flex flex-col gap-4 p-5">
-            <h1 className="text-start text-3xl ml-4 font-bold text-amber-900">Create Product</h1>
+            <h1 className="text-start text-3xl ml-2 font-bold text-amber-900">Create Product</h1>
             <div className='flex flex-col md:flex-row'>
               <div>
                 <div className="m-auto p-2">
@@ -47,7 +59,7 @@ export default function CreateProduct() {
                 <div className="m-auto p-2">
                   <label className="flex items-center">
                     Make Visible to User
-                    <input type="checkbox" name="makeVisibleToUser" className="ml-2" required />
+                    <input type="checkbox" name="makeVisibleToUser" className="ml-2" />
                   </label>
                 </div>
               </div>
@@ -89,15 +101,18 @@ export default function CreateProduct() {
 
                 </div>
               </div>
-              
+
             </div>
 
             <div className="m-auto">
               <button
+
                 type="submit"
-                className="w-72 h-12 text-gray-800 font-medium text-center content-center bg-amber-200 rounded-md pl-2 transition duration-300 hover:bg-amber-400"
+                disabled={isLoading}
+
+                className={`${isLoading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-amber-400'} w-72 h-12 text-gray-800 font-medium text-center content-center bg-amber-200 rounded-md pl-2 transition duration-300 hover:bg-amber-400`}
               >
-                Create Product
+                {isLoading ? "Creating" : "Create Product"}
               </button>
             </div>
           </div>

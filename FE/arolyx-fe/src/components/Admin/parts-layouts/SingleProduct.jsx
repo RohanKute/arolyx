@@ -13,6 +13,7 @@ const dummyProduct = {
 export default function SingleProduct({ product = dummyProduct , ...props}) {
     
     const handleDeleteButtonClicked = ()=>{
+           props.handleSetDeleteId(product.id)
            props.toggleDeletePopup(props.isDeleteOpen)
     }
     
@@ -24,15 +25,15 @@ export default function SingleProduct({ product = dummyProduct , ...props}) {
         <>
             <div className="flex hover:bg-gray-50 bg-white shadow-sm border-r border-b m-0.5 h-14 ">
                 <div className="w-24 flex justify-center border-r  border-l">
-                    <img className="object-scale-down h-14 w-14 " src={product.imageUrl} alt="" />
+                    <img className="object-scale-down h-14 w-14 " src={product.img[0]?.url} alt="" />
                 </div>
 
                 <div className="flex m-1 border-r items-center justify-center w-44">
                     <p className="text-center text-gray-700 font-semibold text-base">{product.name}</p>
                 </div>
 
-                <div className="flex m-1 border-r items-center justify-center w-96">
-                    <p className="text-center text-gray-700 font-semibold text-base">{product.description}</p>
+                <div className="flex m-1 border-r  overflow-clip items-center justify-center w-96">
+                    <p className="text-center  text-gray-700 font-semibold text-base">{product.description}</p>
                 </div>
 
                 <div className="flex m-1 border-r items-center justify-center w-24">

@@ -28,7 +28,7 @@ const deleteProduct = router.post('/delete-product', async (req, res) => {
                 }
             })
             if (result) {
-                return res.status(500).json({
+                return res.status(200).json({
                     messege: 'delete-success',
                     code: 1
                 })

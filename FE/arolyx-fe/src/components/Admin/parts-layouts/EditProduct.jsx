@@ -40,7 +40,7 @@ export default function EditProduct({ isEditOpen, toggleEditPopup }) {
             <div className="overflow-y-scroll relative z-10 w-[700px] max-h-[600px] bg-white border border-amber-900 border-opacity-30 m-5 flex flex-col rounded-md p-5">
                 <form onSubmit={handleSubmit} encType="multipart/form-data">
                     <div className="flex flex-col gap-4">
-                        <h1 className="text-start text-3xl font-bold text-amber-900">Edit</h1>
+                        <h1 className="text-start text-3xl ml-2 font-bold text-amber-900">Edit</h1>
                         <div className="flex flex-col md:flex-row gap-4">
                             <div className="flex flex-col">
                                 <div className="m-auto p-2">
@@ -123,7 +123,7 @@ export default function EditProduct({ isEditOpen, toggleEditPopup }) {
                                 type="submit"
                                 className="w-72 h-12 text-gray-800 font-medium text-center content-center bg-gradient-to-r bg-amber-300 rounded-md pl-2 transition duration-300 hover:bg-amber-400"
                             >
-                                Edit
+                                Save
                             </button>
                         </div>
                     </div>

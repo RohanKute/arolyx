@@ -12,7 +12,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div>
+    <div className="mt-12">
       <div className="flex flex-col bg-amber-50 p-4 md:flex-row items-center md:justify-start w-full px-4 border-b border-black">
         <NavLink
           to="/admin/create-product"

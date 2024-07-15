@@ -10,8 +10,8 @@ import AdminSuccessPopup from "../parts-layouts/AdminSuccessPopup";
 import Dashboard from "../pages/Dashboard";
 
 export default function AdminMaster() {
-    const [ adminPopup, setAdminPopup ] = useState(useAdminPopup());
-    const [ isAdminAuth, setIsAdminAuth ] = useState(useAdminAuth());
+    const [adminPopup, setAdminPopup] = useState(useAdminPopup());
+    const [isAdminAuth, setIsAdminAuth] = useState(useAdminAuth());
     const [isAuthStatusChecked, setIsAuthStatusChecked] = useState(false);
 
     useEffect(() => {
@@ -24,8 +24,8 @@ export default function AdminMaster() {
                 if (response?.data?.messege === 'auth-success') {
                     console.log('Auth success:', response?.data?.message);
                     setAdminPopup({
-                         text: "Login Success!",
-                         messege: "success"
+                        text: "Login Success!",
+                        messege: "success"
                     })
                     setIsAdminAuth(true);
                 } else {
@@ -54,22 +54,24 @@ export default function AdminMaster() {
                     <div className="fixed top-0 w-full z-50">
                         <AdminNavbar />
                     </div>
-                    {adminPopup?.messege && (
-                        <>
-                            {adminPopup.messege === 'success' && <AdminSuccessPopup />}
-                            {/* {adminPopup.messege === 'fail' && <FailPopup />} */}
-                        </>
-                    )}
+
                     <main className="container-m w-full mt-4">
                         {!isAdminAuth ? (
-                            <div className="flex  justify-center">
+                            <div className="flex mt-20  justify-center">
                                 <AdminLogin />
                             </div>
                         ) : (
                             // Render the main content for authenticated admin here
                             <div>
-                                <Dashboard/>
-
+                                <div className="fixed top-16 w-full z-40">
+                                    {adminPopup.messege && (
+                                        <>
+                                            {adminPopup.messege === 'success' && <AdminSuccessPopup />}
+                                            {/* {popup.messege === 'fail' && <FailPopup />} */}
+                                        </>
+                                    )}
+                                </div>
+                                <Dashboard />
                             </div>
                         )}
                     </main>
