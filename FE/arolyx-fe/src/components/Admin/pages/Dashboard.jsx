@@ -22,7 +22,13 @@ export default function Dashboard() {
               : "m-2 w-48 bg-amber-200 hover:bg-amber-300 text-black font-semibold py-2 px-4 rounded-lg shadow-sm text-center transition duration-300 ease-in-out"
           }
         >
-          Create New Product
+          <div className="flex">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none"  stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+          </svg>
+          Create New
+          </div>
+        
         </NavLink>
         <NavLink
           to="/admin/products"

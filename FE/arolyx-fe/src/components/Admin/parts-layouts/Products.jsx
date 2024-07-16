@@ -10,11 +10,16 @@ export default function Products() {
    const [isEditOpen, setIsEditOpen] = useState(false);
    const [products, setProducts] = useState([]);
    const [deleteProductId, setDeleteProductId] = useState(null);
-
+   const [editProductId, setEditProductId] = useState(null);
+   const [productToEdit , setProductToEdit] = useState();
 
    const handleSetDeleteId = (id) => {
       setDeleteProductId(id);
-   }
+   };
+
+   const handleSetEditId = (id) => {
+      setEditProductId(id);
+   };
 
    useEffect(() => {
       const getProducts = async () => {
@@ -29,14 +34,24 @@ export default function Products() {
          }
       }
       getProducts()
-   }, [deleteProductId])
+   }, [deleteProductId, editProductId]);
+
    const toggleDeletePopup = (isDeleteOpen) => {
       setIsDeleteOpen(!isDeleteOpen)
    }
 
    const toggleEditPopup = (isEditOpen) => {
       setIsEditOpen(!isEditOpen)
-   }
+   };
+
+   useEffect(() => {
+      console.log(editProductId, ": editProductId");
+      if (editProductId !== null) {
+         const p = products.filter((product) => product.id === editProductId)[0];
+         setProductToEdit(p);
+      }
+   },[editProductId])
+
    return (
       <>
          <div>
@@ -45,7 +60,7 @@ export default function Products() {
                   <>
                      <TableHeader />
                      {products.map((product) => (
-                        <SingleProduct key={product.id + nanoid()} handleSetDeleteId={handleSetDeleteId} isDeleteOpen={isDeleteOpen} toggleDeletePopup={toggleDeletePopup} isEditOpen={isEditOpen} toggleEditPopup={toggleEditPopup} product={product} />
+                        <SingleProduct key={product.id + nanoid()} handleSetEditId={handleSetEditId} handleSetDeleteId={handleSetDeleteId} isDeleteOpen={isDeleteOpen} toggleDeletePopup={toggleDeletePopup} isEditOpen={isEditOpen} toggleEditPopup={toggleEditPopup} product={product} />
                      ))}
                   </>
                ) :
@@ -55,7 +70,7 @@ export default function Products() {
          </div>
          <div>
             {isDeleteOpen && <WarningDeletePopup handleSetDeleteId={handleSetDeleteId} deleteProductId={deleteProductId} isDeleteOpen={isDeleteOpen} toggleDeletePopup={toggleDeletePopup} />}
-            {isEditOpen && <EditProduct isEditOpen={isEditOpen} toggleEditPopup={toggleEditPopup} />}
+            {isEditOpen && <EditProduct productToEdit={productToEdit} handleSetEditId={handleSetEditId} isEditOpen={isEditOpen} toggleEditPopup={toggleEditPopup} />}
          </div>
       </>
    )

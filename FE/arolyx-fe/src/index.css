@@ -9,7 +9,7 @@
 
 /* Customize the color */
 #nprogress .bar {
-    background: #78350f; /* Blue color */
+    background: #00c4c7; /* Blue color */
   }
   
   /* Customize the height */
@@ -17,7 +17,8 @@
     height: 3px;
   }
 
+
   #nprogress .spinner-icon {
-    border-top-color: #78350f;  /* Top border color */
-    border-left-color: #78350f; /* Left border color */
+    border-top-color: #00c4c7;  /* Top border color */
+    border-left-color: #00c4c7; /* Left border color */
   }

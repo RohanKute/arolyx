@@ -1,24 +1,21 @@
 import React, { useState } from 'react';
+import { axiosInstanceAdmin } from '../../../utils/axiosInstanceAdmin';
 
-const dummyProduct = {
-    imageUrl: "https://images.pexels.com/photos/22697877/pexels-photo-22697877/free-photo-of-sunset-over-the-townhouses-at-zittau-main-square.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    name: "Sample Product",
-    description: "This is a sample product description.",
-    price: 12.99,
-    stock: 20,
-    makeVisibleToUser: true,
-};
 
-export default function EditProduct({ isEditOpen, toggleEditPopup }) {
+
+export default function EditProduct({ productToEdit, handleSetEditId, isEditOpen, toggleEditPopup }) {
     const [selectedImageIndices, setSelectedImageIndices] = useState([]);
 
     const handleCancel = () => {
         toggleEditPopup(isEditOpen);
     };
-
-    const handleSubmit = (event) => {
+    
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        // Add your form submission logic here
+        const formData = new FormData(event.target);
+        formData.append(selectedImageIndices);
+        const response = await axiosInstanceAdmin.post('/update-product', formData);
+        console.log(response);
     };
 
     const handleImageClick = (index) => {
@@ -49,6 +46,7 @@ export default function EditProduct({ isEditOpen, toggleEditPopup }) {
                                         name="name"
                                         className="w-72 h-12 border border-amber-900 focus:border-2 outline-none rounded-md px-4 placeholder:text-amber-900 placeholder:text-opacity-50"
                                         placeholder="Product Name"
+                                        value={productToEdit?.name}
                                         required
                                     />
                                 </div>
@@ -58,11 +56,18 @@ export default function EditProduct({ isEditOpen, toggleEditPopup }) {
                                         maxLength="75"
                                         className="w-72 max-h-28 min-h-28 border border-amber-900 focus:border-2 outline-none rounded-md px-4 placeholder:text-amber-900 placeholder:text-opacity-50"
                                         placeholder="Description (max 75 characters)"
+                                        value={productToEdit?.description}
                                         required
                                     ></textarea>
                                 </div>
                                 <div className="flex p-2">
-                                    <input type="checkbox" name="makeVisibleToUser" className="" id='makeVisible' required />
+                                    <input
+                                     type="checkbox"
+                                     name="makeVisibleToUser" 
+                                     className="" 
+                                     id='makeVisible'
+                                     checked = {productToEdit?.makeVisibleToUser ? true : false } 
+                                     required />
                                     <label className="font-semibold ml-2" htmlFor='makeVisible'>Make Visible to User
                                     </label>
                                 </div>
@@ -75,6 +80,7 @@ export default function EditProduct({ isEditOpen, toggleEditPopup }) {
                                         name="price"
                                         className="w-72 h-12 border border-amber-900 focus:border-2 outline-none rounded-md px-4 outline-1 placeholder:text-amber-900 placeholder:text-opacity-50"
                                         placeholder="Price"
+                                        value={productToEdit?.price}
                                         required
                                     />
                                 </div>
@@ -85,6 +91,7 @@ export default function EditProduct({ isEditOpen, toggleEditPopup }) {
                                         name="stock"
                                         className="w-72 h-12 border border-amber-900 focus:border-2 outline-none rounded-md px-4 outline-1 placeholder:text-amber-900 placeholder:text-opacity-50"
                                         placeholder="Stock"
+                                        value={productToEdit?.stock}
                                         required
                                     />
                                 </div>
@@ -106,13 +113,12 @@ export default function EditProduct({ isEditOpen, toggleEditPopup }) {
                         <div className='flex flex-col '>
                             <h1 className='ml-2  font-semibold'>Click on Image to remove</h1>
                             <div className='flex flex-wrap'>
-                                {[...Array(10)].map((item, index) => (
+                                {productToEdit?.img?.map((image) => (
                                     <img
-                                        key={index}
-                                        className={`size-28 m-2 ${selectedImageIndices.includes(index) ? 'brightness-50 border-2 border-amber-500' : ''}`}
-                                        onClick={() => handleImageClick(index)}
-                                        src={dummyProduct.imageUrl}
-                                        alt={`Product Image ${index + 1}`}
+                                        key={image.publicId}
+                                        className={`size-28 m-2 ${selectedImageIndices.includes(image.publicId) ? 'brightness-50 border-2 border-amber-500' : ''}`}
+                                        onClick={() => handleImageClick(image.publicId)}
+                                        src={image.url}
                                     />
                                 ))}
                             </div>
