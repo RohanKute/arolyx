@@ -5,13 +5,15 @@ import WarningDeletePopup from "./WarningDeletePopup";
 import EditProduct from "./EditProduct";
 import { axiosInstanceAdmin } from "../../../utils/axiosInstanceAdmin";
 import { nanoid } from 'nanoid'
+
+
 export default function Products() {
    const [isDeleteOpen, setIsDeleteOpen] = useState(false);
    const [isEditOpen, setIsEditOpen] = useState(false);
    const [products, setProducts] = useState([]);
    const [deleteProductId, setDeleteProductId] = useState(null);
    const [editProductId, setEditProductId] = useState(null);
-   const [productToEdit , setProductToEdit] = useState();
+   const [productToEdit , setProductToEdit] = useState({});
 
    const handleSetDeleteId = (id) => {
       setDeleteProductId(id);
@@ -40,14 +42,14 @@ export default function Products() {
       setIsDeleteOpen(!isDeleteOpen)
    }
 
-   const toggleEditPopup = (isEditOpen) => {
+   const toggleEditPopup = (isEditOpen) => {      
       setIsEditOpen(!isEditOpen)
    };
 
    useEffect(() => {
-      console.log(editProductId, ": editProductId");
       if (editProductId !== null) {
          const p = products.filter((product) => product.id === editProductId)[0];
+         console.log(p);
          setProductToEdit(p);
       }
    },[editProductId])
@@ -70,7 +72,7 @@ export default function Products() {
          </div>
          <div>
             {isDeleteOpen && <WarningDeletePopup handleSetDeleteId={handleSetDeleteId} deleteProductId={deleteProductId} isDeleteOpen={isDeleteOpen} toggleDeletePopup={toggleDeletePopup} />}
-            {isEditOpen && <EditProduct productToEdit={productToEdit} handleSetEditId={handleSetEditId} isEditOpen={isEditOpen} toggleEditPopup={toggleEditPopup} />}
+            {isEditOpen  && productToEdit.id === editProductId && <EditProduct productToEdit={productToEdit} handleSetEditId={handleSetEditId} isEditOpen={isEditOpen} toggleEditPopup={toggleEditPopup} />}
          </div>
       </>
    )

@@ -1,21 +1,45 @@
 import React, { useState } from 'react';
-import { axiosInstanceAdmin } from '../../../utils/axiosInstanceAdmin';
-
-
+import { axiosInstanceAdminForm } from '../../../utils/axiosInstanceAdmin';
+import { useAdminPopup } from '../../../context/admin-context/adminPopupContext';
 
 export default function EditProduct({ productToEdit, handleSetEditId, isEditOpen, toggleEditPopup }) {
+
+
     const [selectedImageIndices, setSelectedImageIndices] = useState([]);
+    const [formData, setFormData] = useState(productToEdit);
+    const {adminPopup, setAdminPopup} = useAdminPopup();
+    const handleInputChange = (e) => {
+        const { name, value, type, checked } = e.target;
+        setFormData({
+            ...formData,
+            [name]: type === 'checkbox' ? checked : value,
+        });
+    };
 
     const handleCancel = () => {
         toggleEditPopup(isEditOpen);
+        handleSetEditId(null);
+        
     };
-    
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        const formData = new FormData(event.target);
-        formData.append(selectedImageIndices);
-        const response = await axiosInstanceAdmin.post('/update-product', formData);
-        console.log(response);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const formDataToSend = new FormData(e.target);
+        formDataToSend.append('imgArr', selectedImageIndices);
+        formDataToSend.append('id', productToEdit.id);
+
+        try {
+            const response = await axiosInstanceAdminForm.post('/update-product', formDataToSend);
+            if(response.data.code === 1){
+                setAdminPopup({
+                    text : "Product updated succesfully",
+                    messege : 'success'
+                })
+            }
+        } catch (error) {
+            console.error('Error updating product:', error);
+        }
+        handleSetEditId(null)
     };
 
     const handleImageClick = (index) => {
@@ -30,10 +54,7 @@ export default function EditProduct({ productToEdit, handleSetEditId, isEditOpen
 
     return (
         <div className={`fixed inset-0 z-50 flex items-center justify-center ${isEditOpen ? 'block' : 'hidden'}`}>
-            <div
-                className="absolute inset-0 bg-black opacity-50"
-                onClick={handleCancel}
-            ></div>
+            <div className="absolute inset-0 bg-black opacity-50" onClick={handleCancel}></div>
             <div className="overflow-y-scroll relative z-10 w-[700px] max-h-[600px] bg-white border border-amber-900 border-opacity-30 m-5 flex flex-col rounded-md p-5">
                 <form onSubmit={handleSubmit} encType="multipart/form-data">
                     <div className="flex flex-col gap-4">
@@ -46,7 +67,8 @@ export default function EditProduct({ productToEdit, handleSetEditId, isEditOpen
                                         name="name"
                                         className="w-72 h-12 border border-amber-900 focus:border-2 outline-none rounded-md px-4 placeholder:text-amber-900 placeholder:text-opacity-50"
                                         placeholder="Product Name"
-                                        value={productToEdit?.name}
+                                        value={formData.name}
+                                        onChange={handleInputChange}
                                         required
                                     />
                                 </div>
@@ -56,19 +78,22 @@ export default function EditProduct({ productToEdit, handleSetEditId, isEditOpen
                                         maxLength="75"
                                         className="w-72 max-h-28 min-h-28 border border-amber-900 focus:border-2 outline-none rounded-md px-4 placeholder:text-amber-900 placeholder:text-opacity-50"
                                         placeholder="Description (max 75 characters)"
-                                        value={productToEdit?.description}
+                                        value={formData.description}
+                                        onChange={handleInputChange}
                                         required
                                     ></textarea>
                                 </div>
                                 <div className="flex p-2">
                                     <input
-                                     type="checkbox"
-                                     name="makeVisibleToUser" 
-                                     className="" 
-                                     id='makeVisible'
-                                     checked = {productToEdit?.makeVisibleToUser ? true : false } 
-                                     required />
-                                    <label className="font-semibold ml-2" htmlFor='makeVisible'>Make Visible to User
+                                        type="checkbox"
+                                        name="makeVisibleToUser"
+                                        className=""
+                                        id="makeVisible"
+                                        checked={formData.makeVisibleToUser}
+                                        onChange={handleInputChange}
+                                    />
+                                    <label className="font-semibold ml-2" htmlFor="makeVisible">
+                                        Make Visible to User
                                     </label>
                                 </div>
                             </div>
@@ -80,18 +105,19 @@ export default function EditProduct({ productToEdit, handleSetEditId, isEditOpen
                                         name="price"
                                         className="w-72 h-12 border border-amber-900 focus:border-2 outline-none rounded-md px-4 outline-1 placeholder:text-amber-900 placeholder:text-opacity-50"
                                         placeholder="Price"
-                                        value={productToEdit?.price}
+                                        value={formData.price}
+                                        onChange={handleInputChange}
                                         required
                                     />
                                 </div>
-
                                 <div className=" p-2">
                                     <input
                                         type="number"
                                         name="stock"
                                         className="w-72 h-12 border border-amber-900 focus:border-2 outline-none rounded-md px-4 outline-1 placeholder:text-amber-900 placeholder:text-opacity-50"
                                         placeholder="Stock"
-                                        value={productToEdit?.stock}
+                                        value={formData.stock}
+                                        onChange={handleInputChange}
                                         required
                                     />
                                 </div>
@@ -104,25 +130,24 @@ export default function EditProduct({ productToEdit, handleSetEditId, isEditOpen
                                             accept="image/*"
                                             multiple
                                             className="w-72 focus:border-2 outline-none outline-1"
-                                            required
                                         />
                                     </label>
                                 </div>
                             </div>
                         </div>
-                        <div className='flex flex-col '>
-                            <h1 className='ml-2  font-semibold'>Click on Image to remove</h1>
-                            <div className='flex flex-wrap'>
+                        <div className="flex flex-col">
+                            <h1 className="ml-2 font-semibold">Click on Image to remove</h1>
+                            <div className="flex flex-wrap">
                                 {productToEdit?.img?.map((image) => (
                                     <img
                                         key={image.publicId}
                                         className={`size-28 m-2 ${selectedImageIndices.includes(image.publicId) ? 'brightness-50 border-2 border-amber-500' : ''}`}
                                         onClick={() => handleImageClick(image.publicId)}
                                         src={image.url}
+                                        alt="Product"
                                     />
                                 ))}
                             </div>
-
                         </div>
                         <div className="m-auto">
                             <button

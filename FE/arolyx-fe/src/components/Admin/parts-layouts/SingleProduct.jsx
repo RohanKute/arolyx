@@ -1,29 +1,20 @@
 import React, { useState } from "react";
 import WarningDeletePopup from "./WarningDeletePopup";
 
-const dummyProduct = {
-    imageUrl: "https://images.pexels.com/photos/22697877/pexels-photo-22697877/free-photo-of-sunset-over-the-townhouses-at-zittau-main-square.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    name: "Sample Product",
-    description: "This is a sample product description.",
-    price: 12.99,
-    stock: 20,
-    makeVisibleToUser: true,
-};
 
-export default function SingleProduct({ product = dummyProduct , ...props}) {
+
+export default function SingleProduct({ product  , ...props}) {
     
     const handleDeleteButtonClicked = ()=>{
            props.handleSetDeleteId(product.id)
            props.toggleDeletePopup(props.isDeleteOpen)
     }
     
-
     const handleEditButtonClicked = () =>{
         props.handleSetEditId(product.id)
         props.toggleEditPopup(props.isEditOpen)
 
     }
-    
     
     return (
         <>

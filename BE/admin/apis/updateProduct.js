@@ -12,6 +12,7 @@ const { cloudinary } = require('../utils/helpers/cloudinaryConfig');
 const updateProduct = router.post('/update-product', upload.array('file'), async (req, res) => {
     try {
         const newData = req.body;
+        req.body.imgArr = req.body.imgArr?.split(',')
         if (newData) {
             const img = await prisma.product.findUnique({
                 where: {
@@ -22,7 +23,7 @@ const updateProduct = router.post('/update-product', upload.array('file'), async
                 }
             })
             const newImgArr = img.img.filter((image) => {
-                if (!req.body.imgArr[0].includes(image.publicId)) {
+                if (!req.body.imgArr.includes(image.publicId)) {
                     return image;
                 }
             })
@@ -42,7 +43,7 @@ const updateProduct = router.post('/update-product', upload.array('file'), async
                     await cloudinary.v2.uploader.destroy(image);
                 }
             }
-            const makeVisibleToUser = (newData.makeVisibleToUser === 'true')
+            const makeVisibleToUser = (newData.makeVisibleToUser === 'on')
             const product = await prisma.product.update({
                 where: {
                     id: Number(newData.id)
@@ -53,22 +54,24 @@ const updateProduct = router.post('/update-product', upload.array('file'), async
                     price: newData.price,
                     img: newImgArr,
                     makeVisibleToUser: makeVisibleToUser,
-                    stock: newData.stock
+                    stock: Number(newData.stock)
                 }
             })
+            console.log(product)
             if (product) {
                 return res.json({
                     messege: "update-success",
-                    code: 0
+                    code: 1
                 })
             }
-            return res.status(500).json({
+            return res.status(200).json({
                 messege: "fail",
-                code: 1
+                code: 0
             })
         }
 
     } catch (error) {
+        console.log(error)
         return res.json({
             messege: "internal-server-error",
             code: 0

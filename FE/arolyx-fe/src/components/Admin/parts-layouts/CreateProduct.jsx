@@ -95,7 +95,7 @@ export default function CreateProduct() {
                       accept="image/*"
                       multiple
                       className="w-72 focus:border-2 outline-none outline-1"
-                      required
+                      
                     />
                   </label>
 
@@ -106,9 +106,8 @@ export default function CreateProduct() {
 
             <div className="m-auto">
               <button
-
+               disabled = {isLoading}
                 type="submit"
-                disabled={isLoading}
 
                 className={`${isLoading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-amber-400'} w-72 h-12 text-gray-800 font-medium text-center content-center bg-amber-200 rounded-md pl-2 transition duration-300 hover:bg-amber-400`}
               >

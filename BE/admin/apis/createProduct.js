@@ -13,7 +13,7 @@ const createProduct = router.post('/create-product', upload.array('file'), async
     try {
         const imageUrlArr = [];
         const userData = req.body;
-
+        console.log(req.files)
         for (const image of req.files) {
             const buffer = parser.format('.png', image.buffer);
             const uploadResult = await cloudinary.v2.uploader.upload(buffer.content, { folder: "arolyx" });
