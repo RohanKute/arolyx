@@ -1,18 +1,19 @@
-import React from 'react';
-import { axiosInstanceAdmin } from '../../../utils/axiosInstanceAdmin';
+import React, { useState } from 'react';
 import { useAdminPopup } from '../../../context/admin-context/adminPopupContext';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
+import { axiosInstanceAdmin } from '../../../utils/axiosInstanceAdmin';
 
 export default function WarningDeletePopup({handleSetDeleteId, deleteProductId, isDeleteOpen, toggleDeletePopup }) {
   const{adminPopup, setAdminPopup} = useAdminPopup();
-
+  const [loading, setLoading] = useState(false);
   const handleCancel = () => {
     toggleDeletePopup(isDeleteOpen);
   };
   
   const handleDelete= async () => {
        try {
+        setLoading(true);
         NProgress.start();
            const response = await axiosInstanceAdmin.post('/delete-product', { id : deleteProductId});
            console.log(response);
@@ -26,6 +27,7 @@ export default function WarningDeletePopup({handleSetDeleteId, deleteProductId, 
        } catch (error) {
            console.log(error);
        }
+      setLoading(false);
   }
   return (
     <div className={`fixed inset-0 z-50 flex items-center justify-center ${isDeleteOpen ? 'block' : 'hidden'}`}>
@@ -49,10 +51,11 @@ export default function WarningDeletePopup({handleSetDeleteId, deleteProductId, 
           </button>
           <button
             onClick={handleDelete}
-            className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-700 transition duration-150 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
+            disabled = {loading}
+            className={`${loading ? 'opacity-50 cursor-not-allowed ' : 'hover:bg-red-700'} px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-700 transition duration-150 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50`}
             aria-label="Confirm delete action"
           >
-            Delete
+            {loading ? 'Deleting...' : 'Delete'}
           </button>
         </div>
       </div>

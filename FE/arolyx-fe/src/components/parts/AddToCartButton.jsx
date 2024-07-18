@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { axiosInstance } from "../../utils/axiosInstance";
 import { usePopup } from "../../context/popupContext";
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
+import { axiosInstance } from "../../utils/axiosInstance";
 
 export default function AddToCartButton({ product, quantity }) {
   const [buttonText, setButtonText] = useState("Add to Cart");
@@ -25,6 +25,7 @@ export default function AddToCartButton({ product, quantity }) {
       }
 
       if (quantity > 0) {
+        
         const addToCartResponse = await axiosInstance.post("/add-to-cart", {
           product: product,
           quantity: quantity,
@@ -35,7 +36,7 @@ export default function AddToCartButton({ product, quantity }) {
             text: `${quantity} Product(s) added successfully`,
             messege: 'success'
           });
-          setButtonText('Add to Cart (Add More!)');
+          setButtonText('Added to Cart (Add More!)');
         }
       } else {
         setPopup({

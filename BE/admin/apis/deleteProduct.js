@@ -2,9 +2,10 @@ const express = require('express');
 const router = express.Router();
 const { PrismaClient } = require('@prisma/client');
 const { cloudinary } = require('../utils/helpers/cloudinaryConfig');
+const { adminVerifyLogin } = require('../utils/adminVerifyLogin');
 const prisma = new PrismaClient();
 
-const deleteProduct = router.post('/delete-product', async (req, res) => {
+const deleteProduct = router.post('/delete-product', adminVerifyLogin, async (req, res) => {
     try {
         const userData = req.body;
         if (userData.id) {

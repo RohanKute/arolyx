@@ -2,7 +2,6 @@ const { handleJwtToken } = require("../../user/utils/handleJwtToken");
 const jwtSecret = process.env.ADMIN_JWT;
 
 function adminVerifyLogin(req, res, next) {
-    console.log('token' , req?.headers?.authorization);
     try {
         if (req.headers.authorization !== "null") {
             const jwtToken = handleJwtToken().verifyJwtToken(req.headers.authorization,jwtSecret);

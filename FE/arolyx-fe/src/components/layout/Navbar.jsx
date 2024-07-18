@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { useAuth } from '../../context/authContext';
 import { usePopup } from '../../context/popupContext';
 
-export default function NavBar() {
+export default function NavBar({logoutPop , toggleLogoutPopup}) {
     const { isAuth, setIsAuth } = useAuth();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { popup, setPopup } = usePopup();
@@ -12,14 +12,10 @@ export default function NavBar() {
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
-
+  
     const handleLogout = () => {
-        localStorage.removeItem('token');
-        setIsAuth(false);
-        setPopup({
-            ...popup, text: "Logged out successfully, Bye!", messege: "success"
-        });
-        setIsMenuOpen(false); // Close the menu after logout
+        console.log("clicked on logoutpopup: ", logoutPop)
+        toggleLogoutPopup(logoutPop);
     };
 
     const handleButtonClick = () => {
@@ -138,7 +134,7 @@ export default function NavBar() {
                                 <div className='my-3 mx-5'>
                                     {isAuth ? (
                                         <NavLink
-                                            to='/'
+                                            to={window.location.href}
                                             className='text-red-700  hover:bg-yellow-200 hover:rounded-md p-2'
                                             onClick={handleLogout}
                                         >

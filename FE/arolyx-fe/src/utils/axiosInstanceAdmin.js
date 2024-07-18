@@ -1,16 +1,30 @@
 import axios from "axios";
 
-export const axiosInstanceAdmin = axios.create({
+const axiosInstanceAdmin = axios.create({
      baseURL :  'http://localhost:3000/admin',
      headers: {
         'Content-Type': 'application/json',
         'Authorization' : `${localStorage.getItem('admin-token')}`
     },
 })
-export const axiosInstanceAdminForm = axios.create({
+const axiosInstanceAdminForm = axios.create({
     baseURL :  'http://localhost:3000/admin',
     headers: {
        'Content-Type': 'multipart/form-data',
        'Authorization' : `${localStorage.getItem('admin-token')}`
    },
 })
+
+axiosInstanceAdmin.interceptors.request.use(function (config) {
+    let token = localStorage.getItem("admin-token");
+    config.headers["Authorization"] = token;
+    return config;
+  });
+
+  axiosInstanceAdminForm.interceptors.request.use(function (config) {
+    let token = localStorage.getItem("admin-token");
+    config.headers["Authorization"] = token;
+    return config;
+  });
+  
+export  { axiosInstanceAdmin , axiosInstanceAdminForm };

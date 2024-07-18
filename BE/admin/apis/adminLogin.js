@@ -20,11 +20,11 @@ const adminLogin = router.post('/admin-login', async (req, res) => {
                     })
                 }
             }
-            return res.status(404).json({
+            return res.status(200).json({
                 message: 'invalid-secret'
             })
         }
-        return res.status(404).json({
+        return res.status(200).json({
             message: 'internal-server-error'
         })
     } catch (error) {

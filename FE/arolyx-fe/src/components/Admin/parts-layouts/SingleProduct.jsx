@@ -11,9 +11,7 @@ export default function SingleProduct({ product  , ...props}) {
     }
     
     const handleEditButtonClicked = () =>{
-        props.handleSetEditId(product.id)
-        props.toggleEditPopup(props.isEditOpen)
-
+         props.handleSetEditId(product.id)
     }
     
     return (

@@ -9,8 +9,8 @@ import { useAdminAuth } from "../../../context/admin-context/adminAuthContext";
 export default function AdminLogin() {
   const [adminSecret, setAdminSecret] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const {adminPopup, setAdminPopup} = useAdminPopup();
-  const {isAdminAuth, setIsAdminAuth} = useAdminAuth();
+  const { setAdminPopup} = useAdminPopup();
+  const {setIsAdminAuth} = useAdminAuth();
   
 
   const handleAdminSubmit = async (e) => {
@@ -23,18 +23,29 @@ export default function AdminLogin() {
         const response = await axios.post('http://localhost:3000/admin/admin-login', data);
         if(response?.data?.token){
             const token = response?.data?.token;
-            console.log(token)
             localStorage.setItem('admin-token' , token);
+            setIsAdminAuth(true)
             setAdminPopup({
                  text: 'Login Success',
                  messege : 'success'
-            })
-            setAdminPopup(true);
+            });
 
+        } else if (response?.data?.message === 'invalid-secret'){
+          console.log(response)
+          setIsAdminAuth(false)
+          setAdminPopup({
+               text: 'Invalid Secret',
+               messege : 'fail'
+          });
+        } else {
+          setIsAdminAuth(false)
+          setAdminPopup({
+               text : 'Internal Server Error',
+               messsege : 'fail'
+           })
         }
     }
-    setIsLoading(true);
-
+    NProgress.done();
   };
 
   return (

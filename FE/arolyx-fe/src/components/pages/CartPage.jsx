@@ -11,7 +11,7 @@ import { usePopup } from "../../context/popupContext";
 
 
 export default function CartPage() {
-    const { isAuth, setIsAuth } = useAuth();
+    const { isAuth } = useAuth();
     const [userCart, setUserCart] = useState([]);
     const { popup, setPopup } = usePopup();
 
@@ -22,24 +22,25 @@ export default function CartPage() {
         }
     }
     useEffect(() => {
-        const getCart = async () => {
-            NProgress.start()
-            try {
-                const responseUserCart = await axiosInstance.get('/get-cart');
-                if(responseUserCart?.data){
-                    setUserCart(responseUserCart.data);
+        if (isAuth) {
+            const getCart = async () => {
+                NProgress.start()
+                try {
+                    const responseUserCart = await axiosInstance.get('/get-cart');
+                    if (responseUserCart?.data) {
+                        setUserCart(responseUserCart.data);
+                    }
+                } catch (error) {
+                    setPopup({
+                        text: "Error fetching cart, (try later!)",
+                        messege: "fail"
+                    })
                 }
-            } catch (error) {
-                console.log("error")
-                setPopup({
-                    text: "Error fetching cart, (try later!)",
-                    messege: "fail"
-                })
+                NProgress.done()
             }
-            NProgress.done()
+            getCart()
         }
-        getCart()
-    }, [])
+    }, [isAuth])
 
     if (isAuth) {
         return (<>

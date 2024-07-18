@@ -5,7 +5,7 @@ import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 
 export default function CartProduct({cartItem, handleRemovedItem}) {
-  const {popup, setPopup} = usePopup()
+  const { setPopup } = usePopup()
   
 
   const handleRemoveButton = async (e)=>{
@@ -32,7 +32,7 @@ export default function CartProduct({cartItem, handleRemovedItem}) {
        <div className="h-24 w-24 flex-shrink-0 ">
          <img
            className="object-cover h-full w-full rounded-lg"
-           src={cartItem?.product?.img[0]?.url}
+           src={cartItem?.product?.img[0]?.url.replace('upload', 'upload/w_150,h_150')}
            alt="Product"
          />
        </div>

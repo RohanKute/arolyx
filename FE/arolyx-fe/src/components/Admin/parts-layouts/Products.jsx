@@ -4,76 +4,76 @@ import React, { useEffect, useState } from "react";
 import WarningDeletePopup from "./WarningDeletePopup";
 import EditProduct from "./EditProduct";
 import { axiosInstanceAdmin } from "../../../utils/axiosInstanceAdmin";
-import { nanoid } from 'nanoid'
-
 
 export default function Products() {
    const [isDeleteOpen, setIsDeleteOpen] = useState(false);
-   const [isEditOpen, setIsEditOpen] = useState(false);
    const [products, setProducts] = useState([]);
    const [deleteProductId, setDeleteProductId] = useState(null);
    const [editProductId, setEditProductId] = useState(null);
-   const [productToEdit , setProductToEdit] = useState({});
 
    const handleSetDeleteId = (id) => {
       setDeleteProductId(id);
    };
+   
+   const handleSetEditId = (id)=>{
+      setEditProductId(id); 
+   }
 
-   const handleSetEditId = (id) => {
-      setEditProductId(id);
-   };
-
+   const toggleDeletePopup = () => {
+      setIsDeleteOpen(!isDeleteOpen);
+   }
    useEffect(() => {
       const getProducts = async () => {
          try {
             const response = await axiosInstanceAdmin.get('/see-products');
             if (response?.data) {
-               console.log(response.data);
                setProducts(response.data.products);
             }
          } catch (error) {
-            console.log("Error")
+            console.log("Error fetching products:", error);
          }
       }
-      getProducts()
-   }, [deleteProductId, editProductId]);
-
-   const toggleDeletePopup = (isDeleteOpen) => {
-      setIsDeleteOpen(!isDeleteOpen)
-   }
-
-   const toggleEditPopup = (isEditOpen) => {      
-      setIsEditOpen(!isEditOpen)
-   };
-
-   useEffect(() => {
-      if (editProductId !== null) {
-         const p = products.filter((product) => product.id === editProductId)[0];
-         console.log(p);
-         setProductToEdit(p);
-      }
-   },[editProductId])
+      getProducts();
+   }, [editProductId, deleteProductId]);
 
    return (
       <>
          <div>
-            {products.length ?
-               (
-                  <>
-                     <TableHeader />
-                     {products.map((product) => (
-                        <SingleProduct key={product.id + nanoid()} handleSetEditId={handleSetEditId} handleSetDeleteId={handleSetDeleteId} isDeleteOpen={isDeleteOpen} toggleDeletePopup={toggleDeletePopup} isEditOpen={isEditOpen} toggleEditPopup={toggleEditPopup} product={product} />
-                     ))}
-                  </>
-               ) :
-               (
-                  <div>No products available</div>
-               )}
+            {products.length ? (
+               <>
+                  <TableHeader />
+                  {products.map((product) => (
+                     <SingleProduct
+                        key={product.id}
+                        handleSetEditId={handleSetEditId}
+                        handleSetDeleteId={handleSetDeleteId}
+                        isDeleteOpen={isDeleteOpen}
+                        toggleDeletePopup={toggleDeletePopup}
+                        product={product}
+                     />
+                  ))}
+               </>
+            ) : (
+               <div>No products available</div>
+            )}
          </div>
          <div>
-            {isDeleteOpen && <WarningDeletePopup handleSetDeleteId={handleSetDeleteId} deleteProductId={deleteProductId} isDeleteOpen={isDeleteOpen} toggleDeletePopup={toggleDeletePopup} />}
-            {isEditOpen  && productToEdit.id === editProductId && <EditProduct productToEdit={productToEdit} handleSetEditId={handleSetEditId} isEditOpen={isEditOpen} toggleEditPopup={toggleEditPopup} />}
+            {isDeleteOpen && (
+               <WarningDeletePopup
+                  handleSetDeleteId={handleSetDeleteId}
+                  deleteProductId={deleteProductId}
+                  isDeleteOpen={isDeleteOpen}
+                  toggleDeletePopup={toggleDeletePopup}
+               />
+            )}
+            {editProductId  && (
+               <EditProduct
+                  editProductId = {editProductId}
+                  products = {products}
+                  handleSetEditId={handleSetEditId}
+               />
+            )}
          </div>
       </>
-   )
+   );
 }

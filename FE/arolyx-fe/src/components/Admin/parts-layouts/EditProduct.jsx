@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
-import { axiosInstanceAdminForm } from '../../../utils/axiosInstanceAdmin';
+import React, { useState , useEffect } from 'react';
 import { useAdminPopup } from '../../../context/admin-context/adminPopupContext';
+import { axiosInstanceAdminForm } from '../../../utils/axiosInstanceAdmin';
 
-export default function EditProduct({ productToEdit, handleSetEditId, isEditOpen, toggleEditPopup }) {
-
-
+export default function EditProduct({ products , editProductId, handleSetEditId }) {
     const [selectedImageIndices, setSelectedImageIndices] = useState([]);
-    const [formData, setFormData] = useState(productToEdit);
+    const [formData, setFormData] = useState();
     const {adminPopup, setAdminPopup} = useAdminPopup();
     const handleInputChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -16,20 +14,28 @@ export default function EditProduct({ productToEdit, handleSetEditId, isEditOpen
         });
     };
 
-    const handleCancel = () => {
-        toggleEditPopup(isEditOpen);
-        handleSetEditId(null);
-        
-    };
-
+    useEffect(() => {
+      if (editProductId !== null) {
+         const product = products.find((product) => product.id === editProductId);
+         console.log(product);
+         if (product) {
+            setFormData(product);
+         }
+      }
+     }, []);
+    
+    const handleCancel = ()=>{
+        handleSetEditId(null)
+    }
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formDataToSend = new FormData(e.target);
         formDataToSend.append('imgArr', selectedImageIndices);
-        formDataToSend.append('id', productToEdit.id);
+        formDataToSend.append('id', editProductId);
 
         try {
             const response = await axiosInstanceAdminForm.post('/update-product', formDataToSend);
+            console.log(response.data)
             if(response.data.code === 1){
                 setAdminPopup({
                     text : "Product updated succesfully",
@@ -50,11 +56,14 @@ export default function EditProduct({ productToEdit, handleSetEditId, isEditOpen
                 return [...prevSelected, index];
             }
         });
-    };
+};
 
+ if(formData?.id){
     return (
-        <div className={`fixed inset-0 z-50 flex items-center justify-center ${isEditOpen ? 'block' : 'hidden'}`}>
-            <div className="absolute inset-0 bg-black opacity-50" onClick={handleCancel}></div>
+        <div className={`fixed inset-0 z-50 flex items-center justify-center`}>
+            <div className="absolute inset-0 bg-black opacity-50" 
+             onClick={handleCancel}
+            ></div>
             <div className="overflow-y-scroll relative z-10 w-[700px] max-h-[600px] bg-white border border-amber-900 border-opacity-30 m-5 flex flex-col rounded-md p-5">
                 <form onSubmit={handleSubmit} encType="multipart/form-data">
                     <div className="flex flex-col gap-4">
@@ -138,10 +147,10 @@ export default function EditProduct({ productToEdit, handleSetEditId, isEditOpen
                         <div className="flex flex-col">
                             <h1 className="ml-2 font-semibold">Click on Image to remove</h1>
                             <div className="flex flex-wrap">
-                                {productToEdit?.img?.map((image) => (
+                                {formData?.img?.map((image) => (
                                     <img
                                         key={image.publicId}
-                                        className={`size-28 m-2 ${selectedImageIndices.includes(image.publicId) ? 'brightness-50 border-2 border-amber-500' : ''}`}
+                                        className={`size-28 m-2 ${selectedImageIndices.includes(image.publicId) ? 'brightness-50 border-4 border-sky-300' : ''}`}
                                         onClick={() => handleImageClick(image.publicId)}
                                         src={image.url}
                                         alt="Product"
@@ -162,4 +171,5 @@ export default function EditProduct({ productToEdit, handleSetEditId, isEditOpen
             </div>
         </div>
     );
+}
 }

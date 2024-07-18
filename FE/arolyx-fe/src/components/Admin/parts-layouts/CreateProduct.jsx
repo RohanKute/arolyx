@@ -3,6 +3,7 @@ import axios from 'axios';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import { useAdminPopup } from '../../../context/admin-context/adminPopupContext';
+import { axiosInstanceAdminForm } from '../../../utils/axiosInstanceAdmin';
 
 export default function CreateProduct() {
   const {adminPopup , setAdminPopup} = useAdminPopup();
@@ -14,7 +15,7 @@ export default function CreateProduct() {
     NProgress.start()
     try {
       const formData = new FormData(e.target);
-      const response = await axios.post('http://localhost:3000/admin/create-product', formData);
+      const response = await axiosInstanceAdminForm.post('http://localhost:3000/admin/create-product', formData);
       if(response.data.code === 0){
         setAdminPopup({
           text : 'Product Added Succesfully',
@@ -26,7 +27,6 @@ export default function CreateProduct() {
       console.error('Error:', error);
     }
     setIsLoading(false);
-
     NProgress.done()
   };
 

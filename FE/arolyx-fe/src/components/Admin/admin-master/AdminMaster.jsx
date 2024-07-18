@@ -4,12 +4,12 @@ import { AdminAuthProvider, useAdminAuth } from "../../../context/admin-context/
 import AdminLogin from "../parts-layouts/AdminLogin";
 import { AdminPopupContextProvider, useAdminPopup } from "../../../context/admin-context/adminPopupContext";
 import { axiosInstanceAdmin } from "../../../utils/axiosInstanceAdmin";
-import SuccessPopup from "../../parts/SuccessPopup";
-import FailPopup from "../../parts/FailPopup";
 import AdminSuccessPopup from "../parts-layouts/AdminSuccessPopup";
 import Dashboard from "../pages/Dashboard";
+import AdminFailPopup from "../parts-layouts/AdminFailPopup";
 
 export default function AdminMaster() {
+    
     const [adminPopup, setAdminPopup] = useState(useAdminPopup());
     const [isAdminAuth, setIsAdminAuth] = useState(useAdminAuth());
     const [isAuthStatusChecked, setIsAuthStatusChecked] = useState(false);
@@ -22,15 +22,8 @@ export default function AdminMaster() {
                 const response = await axiosInstanceAdmin.post('/admin-auth');
                 console.log(response);
                 if (response?.data?.messege === 'auth-success') {
-                    console.log('Auth success:', response?.data?.message);
-                    setAdminPopup({
-                        text: "Login Success!",
-                        messege: "success"
-                    })
                     setIsAdminAuth(true);
                 } else {
-                    console.log('Auth failed:', response?.data?.message);
-                    alert('Login please');
                     setIsAdminAuth(false);
                 }
             } catch (error) {
@@ -56,21 +49,20 @@ export default function AdminMaster() {
                     </div>
 
                     <main className="container-m w-full mt-4">
+                    <div className="fixed top-16 w-full z-40">
+                                    {adminPopup.messege && (
+                                        <>
+                                            {adminPopup.messege === 'success' && <AdminSuccessPopup />}
+                                            {adminPopup.messege === 'fail' && <AdminFailPopup />}
+                                        </>
+                                    )}
+                                </div>
                         {!isAdminAuth ? (
                             <div className="flex mt-20  justify-center">
                                 <AdminLogin />
                             </div>
                         ) : (
-                            // Render the main content for authenticated admin here
                             <div>
-                                <div className="fixed top-16 w-full z-40">
-                                    {adminPopup.messege && (
-                                        <>
-                                            {adminPopup.messege === 'success' && <AdminSuccessPopup />}
-                                            {/* {popup.messege === 'fail' && <FailPopup />} */}
-                                        </>
-                                    )}
-                                </div>
                                 <Dashboard />
                             </div>
                         )}

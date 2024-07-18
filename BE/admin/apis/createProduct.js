@@ -8,12 +8,12 @@ const upload = multer({ storage });
 const DatauriParser = require('datauri/parser');
 const parser = new DatauriParser();
 const { cloudinary } = require('../utils/helpers/cloudinaryConfig');
+const { adminVerifyLogin } = require('../utils/adminVerifyLogin');
 
-const createProduct = router.post('/create-product', upload.array('file'), async (req, res) => {
+const createProduct = router.post('/create-product', adminVerifyLogin, upload.array('file'), async (req, res) => {
     try {
         const imageUrlArr = [];
         const userData = req.body;
-        console.log(req.files)
         for (const image of req.files) {
             const buffer = parser.format('.png', image.buffer);
             const uploadResult = await cloudinary.v2.uploader.upload(buffer.content, { folder: "arolyx" });
@@ -37,8 +37,6 @@ const createProduct = router.post('/create-product', upload.array('file'), async
                     stock : Number(userData.stock)
                 }
             });
-            console.log(product);
-
             if (product) {
                 console.log(product)
                 return res.status(200).json({

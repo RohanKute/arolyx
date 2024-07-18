@@ -8,11 +8,12 @@ const upload = multer({ storage });
 const DatauriParser = require('datauri/parser');
 const parser = new DatauriParser();
 const { cloudinary } = require('../utils/helpers/cloudinaryConfig');
+const { adminVerifyLogin } = require('../utils/adminVerifyLogin');
 
-const updateProduct = router.post('/update-product', upload.array('file'), async (req, res) => {
+const updateProduct = router.post('/update-product', adminVerifyLogin, upload.array('file'), async (req, res) => {
     try {
         const newData = req.body;
-        req.body.imgArr = req.body.imgArr?.split(',')
+        req.body.imgArr = req.body.imgArr.length ? req.body.imgArr?.split(',') : [];
         if (newData) {
             const img = await prisma.product.findUnique({
                 where: {
@@ -38,6 +39,7 @@ const updateProduct = router.post('/update-product', upload.array('file'), async
                     newImgArr.push(obj);
                 }
             }
+            
             if (req.body.imgArr) {
                 for (const image of req.body.imgArr) {
                     await cloudinary.v2.uploader.destroy(image);
