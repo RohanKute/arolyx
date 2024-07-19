@@ -4,7 +4,7 @@ import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import { axiosInstance } from "../../utils/axiosInstance";
 
-export default function AddToCartButton({ product, quantity }) {
+export default function AddToCartButton({ product, quantity , handleCartChange, cartChange }) {
   const [buttonText, setButtonText] = useState("Add to Cart");
   const [isLoading, setIsLoading] = useState(false);
   const { setPopup } = usePopup();
@@ -36,6 +36,7 @@ export default function AddToCartButton({ product, quantity }) {
             text: `${quantity} Product(s) added successfully`,
             messege: 'success'
           });
+          handleCartChange(cartChange)
           setButtonText('Added to Cart (Add More!)');
         }
       } else {
