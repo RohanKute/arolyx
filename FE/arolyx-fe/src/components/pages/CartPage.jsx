@@ -10,7 +10,7 @@ import 'nprogress/nprogress.css';
 import { usePopup } from "../../context/popupContext";
 
 
-export default function CartPage() {
+export default function CartPage({handleCartChange, cartChange}) {
     const { isAuth } = useAuth();
     const [userCart, setUserCart] = useState([]);
     const { popup, setPopup } = usePopup();
@@ -19,6 +19,7 @@ export default function CartPage() {
         if (userCart.length) {
             const newCart = userCart.filter((item) => item.id !== id);
             setUserCart(newCart)
+            handleCartChange(cartChange);
         }
     }
     useEffect(() => {

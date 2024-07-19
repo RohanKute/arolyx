@@ -7,7 +7,7 @@ import AddToCartButton from "./AddToCartButton";
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 
-export default function ProductDetails() {
+export default function ProductDetails({handleCartChange, cartChange}) {
     const [product, setProduct] = useState(null);
     const [quantity, setQuantity] = useState(0);
     const { id } = useParams();
@@ -59,7 +59,7 @@ export default function ProductDetails() {
                     <QuantityInput quantity={quantity} onChangeQuantity={onChangeQuantity}/>
                 </div>
                 <div className="md:ml-2 mt-2">
-                     <AddToCartButton  product={product} quantity={quantity} />
+                     <AddToCartButton  product={product} quantity={quantity} handleCartChange={handleCartChange} cartChange={cartChange} />
                 </div>
             </div>
         </div>
