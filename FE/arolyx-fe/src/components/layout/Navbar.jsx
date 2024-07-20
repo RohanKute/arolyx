@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import img from '../../assets/logo.png';
 import { Link, NavLink } from 'react-router-dom';
 import { useAuth } from '../../context/authContext';
-import { usePopup } from '../../context/popupContext';
 import { axiosInstance } from '../../utils/axiosInstance';
 
 export default function NavBar({ logoutPop, toggleLogoutPopup, cartChange }) {
@@ -24,6 +23,8 @@ export default function NavBar({ logoutPop, toggleLogoutPopup, cartChange }) {
                 }
             }
             calCount();
+        } else{
+            setTotalCartCount(0);
         }
     }, [cartChange, isAuth]);
 

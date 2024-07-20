@@ -8,7 +8,7 @@ import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 
 export default function Login() {
-  const { isAuth, setIsAuth } = useAuth();
+  const { setIsAuth } = useAuth();
   const { setPopup } = usePopup();
   const [contactNumber, setContactNumber] = useState('');
   const [isLoading, setIsLoading] = useState(false);

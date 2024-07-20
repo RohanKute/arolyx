@@ -18,7 +18,6 @@ export default function TableHeader() {
                 <p className="text-center font-semibold text-gray-600 text-lg">Price</p>
                 </div>
 
-
                 <div className="flex m-1 border-r  items-center justify-center w-24">
                 <p className="text-center font-semibold text-gray-600 text-lg">Stock</p>
                 </div>
