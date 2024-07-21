@@ -38,5 +38,8 @@ model Product {
   img         Json[]
   stock       Int @default(0)
   makeVisibleToUser Boolean
+  discount    Int @default(0)
+  discountedPrice Int @default(0)
+  type        String @default("")
   cartPriducts cartProducts[]
 }

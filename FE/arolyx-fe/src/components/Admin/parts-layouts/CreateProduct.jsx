@@ -24,6 +24,10 @@ export default function CreateProduct() {
       } 
       e.target.reset();     
     } catch (error) {
+      setAdminPopup({
+        text : 'Interal server error',
+        messege : 'fail'
+     })
       console.error('Error:', error);
     }
     setIsLoading(false);
@@ -57,6 +61,15 @@ export default function CreateProduct() {
                   ></textarea>
                 </div>
                 <div className="m-auto p-2">
+                  <input
+                    type="text"
+                    name="type"
+                    className="w-72 h-12 border border-amber-900 focus:border-2 outline-none rounded-md px-4 outline-1 placeholder:text-amber-900 placeholder:text-opacity-50"
+                    placeholder="Type"
+                    required
+                  />
+                </div>
+                <div className="m-auto p-2">
                   <label className="flex items-center">
                     Make Visible to User
                     <input type="checkbox" name="makeVisibleToUser" className="ml-2" />
@@ -83,6 +96,15 @@ export default function CreateProduct() {
                     name="stock"
                     className="w-72 h-12 border border-amber-900 focus:border-2 outline-none rounded-md px-4 outline-1 placeholder:text-amber-900 placeholder:text-opacity-50"
                     placeholder="Stock"
+                    required
+                  />
+                </div>
+                <div className="m-auto p-2">
+                  <input
+                    type="number"
+                    name="discount"
+                    className="w-72 h-12 border border-amber-900 focus:border-2 outline-none rounded-md px-4 outline-1 placeholder:text-amber-900 placeholder:text-opacity-50"
+                    placeholder="Discount"
                     required
                   />
                 </div>

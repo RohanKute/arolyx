@@ -45,7 +45,10 @@ export default function CartProduct({cartItem, handleRemovedItem}) {
            <p className="text-gray-400 h-12  overflow-hidden text-xs md:text-sm">{cartItem?.product?.description}</p>
          </div>
          <div className="flex justify-between items-center mt-2">
-           <p className="text-base md:text-lg font-semibold">₹ {cartItem?.product?.price}</p>
+            <div className="flex items-baseline">
+              <p className="text-base md:text-lg font-semibold pr-1">₹ {cartItem?.product?.price}</p>
+              <p className="text-sm md:text-base text-red-700 font-semibold line-through">₹ {cartItem?.product?.discountedPrice}</p>
+            </div>
            <div className="flex items-center space-x-2 md:space-x-4">
              <p className="text-xs md:text-sm">Qty: {cartItem?.quantity}</p>
              <button onClick={handleRemoveButton} value={cartItem?.id} className="text-red-500 hover:text-red-700 text-xs md:text-sm">Remove</button>

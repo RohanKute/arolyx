@@ -46,7 +46,9 @@ export default function NavBar({ logoutPop, toggleLogoutPopup, cartChange }) {
             {/* Navbar for large screens */}
             <div className="hidden md:flex h-14 rounded-b-3xl  shadow-sm justify-around items-center border-b border-gray-200 bg-white">
                 <div>
-                    <img className='h-14' src={img} alt="arolyx-logo" />
+                    <a href="/">
+                       <img className='h-14' src={img} alt="arolyx-logo" />
+                    </a>
                 </div>
                 <div className="hidden md:flex justify-around text-black-700 text-l font-semibold">
                     <div>
@@ -81,7 +83,7 @@ export default function NavBar({ logoutPop, toggleLogoutPopup, cartChange }) {
                             <NavLink
                                 to='/login'
                                 className={({ isActive }) =>
-                                    isActive ? 'mx-3 underline underline-offset-8 decoration-amber-900 p-2' : 'mx-3 p-2 hover:bg-yellow-200 hover:rounded-md'
+                                    isActive ? 'mx-3 underline underline-offset-8 decoration-amber-900 p-2' : 'mx-3 p-2 bg-yellow-200 rounded-md hover:bg-yellow-300 hover:rounded-md'
                                 }
                             >
                                 Login

@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 
 export default function Checkout({ userCart }) {
-  const [total, setTotal] = useState(0);
+  const [total, setTotal] = useState({
+      totalPrice : 0,
+      totalDiscountedPrice : 0
+  });
 
   const getWhatsappUrl = ()=>{
       const arolyxcontact = '+919767802672'
@@ -13,11 +16,17 @@ export default function Checkout({ userCart }) {
       return url;
   }
   useEffect(() => {
-    let calTotal = 0;
+    let totalPrice = 0;
+    let totalDiscountedPrice = 0;
     for (let i = 0; i < userCart.length; i++) {
-      calTotal += parseInt(userCart[i].product.price) * parseFloat(userCart[i].quantity);
+      totalPrice += parseInt(userCart[i].product.price) * parseFloat(userCart[i].quantity);
+      totalDiscountedPrice += parseInt(userCart[i].product.discountedPrice) * parseFloat(userCart[i].quantity);
+
     }
-    setTotal(calTotal)
+    setTotal({
+      totalPrice : totalPrice,
+      totalDiscountedPrice  : totalDiscountedPrice
+    })
   }, [userCart])
   return (
     <div className="w-96 h-600px flex flex-col m-0 border rounded-lg bg-white p-4 shadow-lg">
@@ -26,11 +35,15 @@ export default function Checkout({ userCart }) {
       </div>
       <div className="flex justify-between items-center mb-4">
         <p>Subtotal:</p>
-        <p className="font-semibold">₹{total}</p>
+        <p className="font-semibold">₹{total.totalPrice}</p>
       </div>
       <div className="flex justify-between items-center mb-6">
-        <p>Total:</p>
-        <p className="font-bold text-lg">₹{total}</p>
+        <p className="font-semibold text-red-700">Discount:</p>
+        <p className="font-bold text-red-700 text-lg">- ₹{total.totalPrice-total.totalDiscountedPrice}</p>
+      </div>
+      <div className="flex justify-between items-center mb-6">
+        <p className="font-semibold">Total:</p>
+        <p className="font-bold text-lg">₹{total.totalDiscountedPrice}</p>
       </div>
       <a href={getWhatsappUrl()} target="_blank"className="bg-green-500 text-white py-2  text-center px-4 rounded-md hover:bg-green-600">
         Order on WhatsApp 

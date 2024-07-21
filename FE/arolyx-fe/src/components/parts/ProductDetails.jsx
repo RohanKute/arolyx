@@ -51,9 +51,10 @@ export default function ProductDetails({handleCartChange, cartChange}) {
                 <div className="md:h-80">
                     <p className="mt-2 md:ml-2 text-gray-500">{product.description.substring(0,100)}</p>
                 </div>
-                <div>
-                    <p className="mt-2 md:ml-2 text-gray-900 font-bold text-2xl"><span>&#8377; </span>
-                        {product.price}</p>
+                <div className="flex  items-baseline">
+                    <p className="mt-2 md:ml-2 text-blue-600 pr-1 font-bold text-2xl">&#8377; {product.discountedPrice}</p>
+                    <p className='text-s pr-1'>MRP &#8377; <span className=' line-through'>{product.price}</span></p>
+                    <p className='text-s text-red-700 font-bold '>{product.discount}% OFF</p>
                 </div>
                 <div className="md:ml-2 mt-2 ">
                     <QuantityInput quantity={quantity} onChangeQuantity={onChangeQuantity}/>

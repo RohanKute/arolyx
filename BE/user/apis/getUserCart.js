@@ -24,7 +24,8 @@ const getUserCart = router.get('/get-cart', verifyLogin, async (req, res)=>{
                             name : true,
                             description : true,
                             price : true,
-                            img :true 
+                            img :true,
+                            discountedPrice : true
                          }
                       }
                     }

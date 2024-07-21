@@ -42,6 +42,14 @@ export default function SingleProduct({ product  , ...props}) {
                 <div className="flex m-1 border-r items-center justify-center w-24">
                     <p className="text-center text-gray-700 font-semibold text-base">{product.makeVisibleToUser ? "Yes" : "No"}</p>
                 </div>
+                
+                <div className="flex m-1 border-r items-center justify-center w-24">
+                    <p className="text-center text-gray-700 font-semibold text-base">{product.type}</p>
+                </div>
+                 
+                <div className="flex m-1 border-r items-center justify-center w-24">
+                    <p className="text-center text-gray-700 font-semibold text-base">{product.discount}</p>
+                </div>
 
 
                 <div className="flex m-1 border-r  items-center justify-center w-24">

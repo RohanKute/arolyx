@@ -11,11 +11,16 @@ export default function Product({ product }) {
         <div className="mb-4">
           <h2 className="text-xl font-bold text-gray-900 mb-1 capitalize">{product.name}</h2>
           <p className="text-gray-600 text-sm mb-2 overflow-hidden overflow-ellipsis" style={{ height: '3rem' }}>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas et sequi quos, ratione illo.
+              {product.description}
           </p>
         </div>
         <div className="flex justify-between items-center">
-          <p className="text-lg font-semibold text-gray-900">&#8377; {product.price}</p>
+          <div className='flex justify-center  items-baseline'>
+            <p className="text-xl font-semibold text-blue-600 pr-1">&#8377; {product.discountedPrice}</p>
+            <p className='text-xs pr-1'>MRP &#8377; <span className=' line-through'>{product.price}</span></p>
+            <p className='text-xs text-red-700 font-bold '>{product.discount}% OFF</p>
+
+          </div>
           <Link
             to={`${product.id}`}
             className="bg-yellow-300 text-gray-900 font-semibold py-1.5 px-4 rounded-md hover:bg-yellow-400 transition duration-300"

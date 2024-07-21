@@ -25,6 +25,7 @@ const createProduct = router.post('/create-product', adminVerifyLogin, upload.ar
                 imageUrlArr.push(obj);
             }
         }
+        const discountedPrice = Math.ceil(Number(userData.price) - (Number(userData.price)* Number(userData.discount/100)))
         const makeVisibleToUser = (userData.makeVisibleToUser === 'on')
         if (userData) {
             const product = await prisma.product.create({
@@ -34,7 +35,10 @@ const createProduct = router.post('/create-product', adminVerifyLogin, upload.ar
                     price: userData.price,
                     img: imageUrlArr,
                     makeVisibleToUser: makeVisibleToUser,
-                    stock : Number(userData.stock)
+                    stock : Number(userData.stock),
+                    type : userData.type,
+                    discount : Number(userData.discount),
+                    discountedPrice : discountedPrice
                 }
             });
             if (product) {

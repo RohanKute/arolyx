@@ -45,6 +45,8 @@ const updateProduct = router.post('/update-product', adminVerifyLogin, upload.ar
                     await cloudinary.v2.uploader.destroy(image);
                 }
             }
+            const discountedPrice = Math.ceil(Number(newData.price) - (Number(newData.price)* Number(newData.discount/100)))
+
             const makeVisibleToUser = (newData.makeVisibleToUser === 'on')
             const product = await prisma.product.update({
                 where: {
@@ -56,7 +58,10 @@ const updateProduct = router.post('/update-product', adminVerifyLogin, upload.ar
                     price: newData.price,
                     img: newImgArr,
                     makeVisibleToUser: makeVisibleToUser,
-                    stock: Number(newData.stock)
+                    stock: Number(newData.stock),
+                    type : newData.type,
+                    discount : Number(newData.discount),
+                    discountedPrice : discountedPrice
                 }
             })
             console.log(product)

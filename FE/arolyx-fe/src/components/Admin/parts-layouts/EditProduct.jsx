@@ -1,9 +1,12 @@
 import React, { useState , useEffect } from 'react';
 import { useAdminPopup } from '../../../context/admin-context/adminPopupContext';
 import { axiosInstanceAdminForm } from '../../../utils/axiosInstanceAdmin';
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
 
 export default function EditProduct({ products , editProductId, handleSetEditId }) {
     const [selectedImageIndices, setSelectedImageIndices] = useState([]);
+    const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState();
     const {adminPopup, setAdminPopup} = useAdminPopup();
     const handleInputChange = (e) => {
@@ -29,6 +32,8 @@ export default function EditProduct({ products , editProductId, handleSetEditId 
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
+        NProgress.start();
         const formDataToSend = new FormData(e.target);
         formDataToSend.append('imgArr', selectedImageIndices);
         formDataToSend.append('id', editProductId);
@@ -45,7 +50,9 @@ export default function EditProduct({ products , editProductId, handleSetEditId 
         } catch (error) {
             console.error('Error updating product:', error);
         }
-        handleSetEditId(null)
+        handleSetEditId(null);
+        setLoading(false);
+        NProgress.done();
     };
 
     const handleImageClick = (index) => {
@@ -70,8 +77,9 @@ export default function EditProduct({ products , editProductId, handleSetEditId 
                         <h1 className="text-start text-3xl ml-2 font-bold text-amber-900">Edit</h1>
                         <div className="flex flex-col md:flex-row gap-4">
                             <div className="flex flex-col">
-                                <div className="m-auto p-2">
-                                    <input
+                            <div className="flex flex-col pb-0.5">
+                                <label htmlFor="" className='pb-0.5 font-semibold'>Name</label>                                    
+                               <input
                                         type="text"
                                         name="name"
                                         className="w-72 h-12 border border-amber-900 focus:border-2 outline-none rounded-md px-4 placeholder:text-amber-900 placeholder:text-opacity-50"
@@ -81,8 +89,8 @@ export default function EditProduct({ products , editProductId, handleSetEditId 
                                         required
                                     />
                                 </div>
-                                <div className=" p-2">
-                                    <textarea
+                                <div className="flex flex-col pb-0.5">
+                                    <label htmlFor="" className='pb-0.5 font-semibold'>Description</label>                                    <textarea
                                         name="description"
                                         maxLength="75"
                                         className="w-72 max-h-28 min-h-28 border border-amber-900 focus:border-2 outline-none rounded-md px-4 placeholder:text-amber-900 placeholder:text-opacity-50"
@@ -92,7 +100,19 @@ export default function EditProduct({ products , editProductId, handleSetEditId 
                                         required
                                     ></textarea>
                                 </div>
-                                <div className="flex p-2">
+                                <div className="flex flex-col pb-0.5">
+                                    <label htmlFor="" className='pb-0.5 font-semibold'>Type</label>
+                                    <input
+                                        type="text"
+                                        name="type"
+                                        className="w-72 h-12 border border-amber-900 focus:border-2 outline-none rounded-md px-4 outline-1 placeholder:text-amber-900 placeholder:text-opacity-50"
+                                        placeholder="Type"
+                                        value={formData.type}
+                                        onChange={handleInputChange}
+                                        required
+                                    />
+                                </div>
+                                <div className="flex p-2 pb-0.5">
                                     <input
                                         type="checkbox"
                                         name="makeVisibleToUser"
@@ -108,7 +128,8 @@ export default function EditProduct({ products , editProductId, handleSetEditId 
                             </div>
 
                             <div className="flex flex-col">
-                                <div className=" p-2">
+                            <div className="flex flex-col pb-0.5">
+                                <label htmlFor="" className='pb-0.5 font-semibold'>Price</label>
                                     <input
                                         type="number"
                                         name="price"
@@ -119,13 +140,26 @@ export default function EditProduct({ products , editProductId, handleSetEditId 
                                         required
                                     />
                                 </div>
-                                <div className=" p-2">
+                                <div className="flex flex-col pb-0.5">
+                                  <label htmlFor="" className='pb-0.5 font-semibold'>Stock</label>
                                     <input
                                         type="number"
                                         name="stock"
                                         className="w-72 h-12 border border-amber-900 focus:border-2 outline-none rounded-md px-4 outline-1 placeholder:text-amber-900 placeholder:text-opacity-50"
                                         placeholder="Stock"
                                         value={formData.stock}
+                                        onChange={handleInputChange}
+                                        required
+                                    />
+                                </div>
+                                <div className="flex flex-col pb-0.5">
+                                   <label htmlFor="" className='pb-0.5 font-semibold'>Discount(%)</label>
+                                    <input
+                                        type="number"
+                                        name="discount"
+                                        className="w-72 h-12 border border-amber-900 focus:border-2 outline-none rounded-md px-4 outline-1 placeholder:text-amber-900 placeholder:text-opacity-50"
+                                        placeholder="Discount"
+                                        value={formData.discount}
                                         onChange={handleInputChange}
                                         required
                                     />
@@ -160,10 +194,12 @@ export default function EditProduct({ products , editProductId, handleSetEditId 
                         </div>
                         <div className="m-auto">
                             <button
+                                disabled = {loading}                                
                                 type="submit"
-                                className="w-72 h-12 text-gray-800 font-medium text-center content-center bg-gradient-to-r bg-amber-300 rounded-md pl-2 transition duration-300 hover:bg-amber-400"
-                            >
-                                Save
+                                className={`${loading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-amber-400'} w-72 h-12 text-gray-800 font-medium text-center content-center bg-amber-200 rounded-md pl-2 transition duration-300 hover:bg-amber-400`}
+                                >
+                                 {loading ? "Saving..." : "Save"}
+
                             </button>
                         </div>
                     </div>
