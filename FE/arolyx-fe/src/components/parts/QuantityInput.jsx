@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 export default function QuantityInput({quantity, onChangeQuantity}) {
-    console.log(quantity)
     const checkIfNumberAndSet = (e) => {
         e.preventDefault();
         const value = e.target.value.trim(); 
@@ -23,31 +22,32 @@ export default function QuantityInput({quantity, onChangeQuantity}) {
     };
 
     return (
-        <div className="flex border w-[120px]">
-            <div>
-                <button
-                    className="bg-slate-200 w-10 h-10 p-1 text-2xl"
-                    onClick={reduceQuantity}
-                >
-                    -
-                </button>
-            </div>
-            <div className="flex items-center justify-center">
-                <input
-                    type="text"
-                    onChange={checkIfNumberAndSet}
-                    value={quantity}
-                    className="outline-none w-10 h-10 p-1 text-center"
-                />
-            </div>
-            <div>
-                <button
-                    className="bg-slate-200 w-10 h-10 p-1 text-2xl"
-                    onClick={increaseQuantity}
-                >
-                    +
-                </button>
-            </div>
-        </div>
+<div className="flex border w-[96px] h-[32]]px]">
+  <div className="flex items-center justify-center w-1/3">
+    <button
+      className="bg-slate-200 w-8 h-8 flex items-center justify-center text-2xl"
+      onClick={reduceQuantity}
+    >
+      -
+    </button>
+  </div>
+  <div className="flex items-center justify-center w-1/3">
+    <input
+      type="text"
+      onChange={checkIfNumberAndSet}
+      value={quantity}
+      className="outline-none w-8 h-8 text-center"
+    />
+  </div>
+  <div className="flex items-center justify-center w-1/3">
+    <button
+      className="bg-slate-200 w-8 h-8 flex items-center justify-center text-2xl"
+      onClick={increaseQuantity}
+    >
+      +
+    </button>
+  </div>
+</div>
+
     );
 }

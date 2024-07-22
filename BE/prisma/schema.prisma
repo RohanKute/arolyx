@@ -41,5 +41,6 @@ model Product {
   discount    Int @default(0)
   discountedPrice Int @default(0)
   type        String @default("")
+  isBestSeller Boolean @default(false)
   cartPriducts cartProducts[]
 }

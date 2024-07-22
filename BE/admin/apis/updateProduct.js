@@ -48,6 +48,7 @@ const updateProduct = router.post('/update-product', adminVerifyLogin, upload.ar
             const discountedPrice = Math.ceil(Number(newData.price) - (Number(newData.price)* Number(newData.discount/100)))
 
             const makeVisibleToUser = (newData.makeVisibleToUser === 'on')
+            const isBestSeller = (newData.isBestSeller === 'on')
             const product = await prisma.product.update({
                 where: {
                     id: Number(newData.id)
@@ -61,7 +62,8 @@ const updateProduct = router.post('/update-product', adminVerifyLogin, upload.ar
                     stock: Number(newData.stock),
                     type : newData.type,
                     discount : Number(newData.discount),
-                    discountedPrice : discountedPrice
+                    discountedPrice : discountedPrice,
+                    isBestSeller : isBestSeller
                 }
             })
             console.log(product)

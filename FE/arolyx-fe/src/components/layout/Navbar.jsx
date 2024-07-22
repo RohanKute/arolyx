@@ -95,7 +95,7 @@ export default function NavBar({ logoutPop, toggleLogoutPopup, cartChange }) {
                     <div className="hidden md:block hover:bg-yellow-200 hover:rounded-full p-3 relative">
                         <NavLink to='/cart' className="relative">
                             {totalCartCount > 0 &&
-                                <div className="absolute top-1 right-0 transform translate-x-1/2 -translate-y-1/2 bg-red-500 w-[18px] h-[18px] rounded-full flex items-center justify-center text-white text-xs">
+                                <div className="absolute font-semibold top-1 right-0 transform translate-x-1/2 -translate-y-1/2 bg-red-500 w-[18px] h-[18px] rounded-full flex items-center justify-center text-white text-xs">
                                     {totalCartCount}
                                 </div>
                             }
@@ -175,7 +175,7 @@ export default function NavBar({ logoutPop, toggleLogoutPopup, cartChange }) {
                             </div>
                             <div className="my-4 mx-5 p-2 hover:bg-yellow-200 hover:rounded-md" onClick={handleButtonClick}>
                                 <NavLink to='/cart' className="relative">
-                                    <div className="absolute top-1 left-2 transform translate-x-1/2 -translate-y-1/2 bg-red-500 w-[18px] h-[18px] rounded-full flex items-center justify-center text-white text-xs">
+                                    <div className="absolute top-1 left-2 transform translate-x-1/2 -translate-y-1/2 bg-red-500 w-[18px] h-[18px] rounded-full flex items-center justify-center font-semibold text-white text-xs">
                                         {totalCartCount}
                                     </div>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">

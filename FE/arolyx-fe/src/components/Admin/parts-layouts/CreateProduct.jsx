@@ -71,8 +71,12 @@ export default function CreateProduct() {
                 </div>
                 <div className="m-auto p-2">
                   <label className="flex items-center">
-                    Make Visible to User
-                    <input type="checkbox" name="makeVisibleToUser" className="ml-2" />
+                  <input type="checkbox" name="makeVisibleToUser" className="mr-2" />
+                    Make Visible to User?
+                  </label>
+                  <label className="flex items-center">
+                    <input type="checkbox" name="isBestSeller" className="mr-2" />
+                    Bestseller?
                   </label>
                 </div>
               </div>

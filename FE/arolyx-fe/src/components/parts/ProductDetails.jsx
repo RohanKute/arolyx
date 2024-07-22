@@ -6,12 +6,13 @@ import QuantityInput from "./QuantityInput";
 import AddToCartButton from "./AddToCartButton";
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
+import InfoImage from "./InfoImage";
 
 export default function ProductDetails({handleCartChange, cartChange}) {
     const [product, setProduct] = useState(null);
     const [quantity, setQuantity] = useState(0);
     const { id } = useParams();
-
+ 
     function onChangeQuantity(newQuantity){
         setQuantity(newQuantity);
     }
@@ -33,8 +34,7 @@ export default function ProductDetails({handleCartChange, cartChange}) {
         getProduct();
     }, [id]);
 
-
-
+   console.log(product)
     if (!product) {
         return <p>Loading...</p>; // Optional: Show a loading state while waiting for data
     }
@@ -42,7 +42,8 @@ export default function ProductDetails({handleCartChange, cartChange}) {
     return (
         <div className="flex flex-col md:h-[500px] w-auto rounded-lg  items-start sm:flex-row sm:justify-center   border   shadow-lg pl-0  bg-white  m-4">
             <div className="">
-                <ImageSlider images={product.img} />
+
+                <ImageSlider images={product.img} isBestSeller={product.isBestSeller} />
             </div>
             <div className="flex flex-col h-full max-w-80 min-w-80 md:ml-4 p-3 ">
                 <div className="md:ml-2">
@@ -51,7 +52,11 @@ export default function ProductDetails({handleCartChange, cartChange}) {
                 <div className="md:h-80">
                     <p className="mt-2 md:ml-2 text-gray-500">{product.description.substring(0,100)}</p>
                 </div>
-                <div className="flex  items-baseline">
+                  <div className="mx-4 my-2">
+                    <InfoImage/>
+                  </div>
+      
+                  <div className="flex  items-baseline">
                     <p className="mt-2 md:ml-2 text-blue-600 pr-1 font-bold text-2xl">&#8377; {product.discountedPrice}</p>
                     <p className='text-s pr-1'>MRP &#8377; <span className=' line-through'>{product.price}</span></p>
                     <p className='text-s text-red-700 font-bold '>{product.discount}% OFF</p>

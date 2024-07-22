@@ -125,6 +125,19 @@ export default function EditProduct({ products , editProductId, handleSetEditId 
                                         Make Visible to User
                                     </label>
                                 </div>
+                                <div className="flex p-2 pb-0.5">
+                                    <input
+                                        type="checkbox"
+                                        name="isBestSeller"
+                                        className=""
+                                        id="isBestSeller"
+                                        checked={formData.isBestSeller}
+                                        onChange={handleInputChange}
+                                    />
+                                    <label className="font-semibold ml-2" htmlFor="isBestSeller">
+                                        Bestseller?
+                                    </label>
+                                </div>
                             </div>
 
                             <div className="flex flex-col">

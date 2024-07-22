@@ -27,6 +27,7 @@ const createProduct = router.post('/create-product', adminVerifyLogin, upload.ar
         }
         const discountedPrice = Math.ceil(Number(userData.price) - (Number(userData.price)* Number(userData.discount/100)))
         const makeVisibleToUser = (userData.makeVisibleToUser === 'on')
+        const isBestSeller = (userData.isBestSeller === 'on')
         if (userData) {
             const product = await prisma.product.create({
                 data: {
@@ -38,7 +39,8 @@ const createProduct = router.post('/create-product', adminVerifyLogin, upload.ar
                     stock : Number(userData.stock),
                     type : userData.type,
                     discount : Number(userData.discount),
-                    discountedPrice : discountedPrice
+                    discountedPrice : discountedPrice,
+                    isBestSeller : isBestSeller
                 }
             });
             if (product) {
