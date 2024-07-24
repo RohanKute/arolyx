@@ -44,7 +44,7 @@ export default function NavBar({ logoutPop, toggleLogoutPopup, cartChange }) {
     return (
         <nav>
             {/* Navbar for large screens */}
-            <div className="hidden md:flex h-14 rounded-b-3xl  shadow-sm justify-around items-center border-b border-gray-200 bg-white">
+            <div className="hidden md:flex h-14 rounded-b-3xl  shadow-sm justify-around items-center border-b  bg-white border-gray-200">
                 <div>
                     <a href="/">
                        <img className='h-14' src={img} alt="arolyx-logo" />

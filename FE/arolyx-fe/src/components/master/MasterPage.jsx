@@ -13,6 +13,7 @@ import SuccessPopup from "../parts/SuccessPopup";
 import FailPopup from "../parts/FailPopup";
 import CartPage from "../pages/CartPage";
 import LogoutWarningPopup from "../parts/LogoutWarningPopup";
+import LandingPage from "../pages/LandingPage";
 
 export default function MasterPage() {
   const [isAuth, setIsAuth] = useState(useAuth());
@@ -69,6 +70,7 @@ export default function MasterPage() {
                       {logoutPop  && <LogoutWarningPopup logoutPop={logoutPop} toggleLogoutPopup={toggleLogoutPopup}/>}
                     </div>
                     <Routes>
+                      <Route path="/" element={<LandingPage/>}/>
                       <Route path="/products" element={<ProductPage />} />
                       <Route path="/products/:id" element={<ProductDetails handleCartChange={handleCartChange} cartChange={cartChange} />} />
                       <Route path='/login' element={<Login />} />
