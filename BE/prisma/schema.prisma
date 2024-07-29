@@ -40,6 +40,7 @@ model Product {
   makeVisibleToUser Boolean
   discount    Int @default(0)
   discountedPrice Int @default(0)
+  details     String[]
   type        String @default("")
   isBestSeller Boolean @default(false)
   cartPriducts cartProducts[]

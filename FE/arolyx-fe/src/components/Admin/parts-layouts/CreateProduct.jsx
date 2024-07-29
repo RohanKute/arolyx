@@ -4,11 +4,32 @@ import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import { useAdminPopup } from '../../../context/admin-context/adminPopupContext';
 import { axiosInstanceAdminForm } from '../../../utils/axiosInstanceAdmin';
+import DetailsItems from './DetailsItems';
 
 export default function CreateProduct() {
   const {adminPopup , setAdminPopup} = useAdminPopup();
   const [isLoading, setIsLoading] = useState();
+  const [detailsArray, setDetailsArray] = useState([]);
+  const [detailsValue , setDetailsValue] = useState();
 
+  const handleDetailsAdd = (e) => {
+      if(detailsValue !== '') {
+        const arr = [...detailsArray, detailsValue];
+        setDetailsArray(arr);
+        setDetailsValue('');
+      }
+
+  }
+
+  const handleChange = (e) =>{
+     console.log(e.target.value);
+     setDetailsValue(e.target.value)
+  }
+
+  const handleRemoveElement = (item) =>{
+      const newArr = detailsArray?.filter((i)=> i!==item);
+      setDetailsArray(newArr);
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -69,6 +90,24 @@ export default function CreateProduct() {
                     required
                   />
                 </div>
+                <div className="m-auto flex items-end p-2">
+                  <label className="flex flex-col items-start">
+                    Add Details List(upto 3)
+                    <input
+                        type="text"
+                        name="details"
+                        value={detailsValue}
+                        onChange={handleChange}
+                        className="w-60 h-12 border border-amber-900 focus:border-2 outline-none rounded-md px-4 outline-1 placeholder:text-amber-900 placeholder:text-opacity-50"
+                        placeholder="Detail"
+                        required
+                  />
+                  </label>
+                  <button  type='button'onClick={handleDetailsAdd} className='w-12 m-0.5 h-11 hover:bg-slate-300 rounded-lg bg-slate-200 font-semibold'>Add</button>
+                </div>
+
+                <DetailsItems detailsArray={detailsArray} handleRemoveElement={handleRemoveElement}/>
+
                 <div className="m-auto p-2">
                   <label className="flex items-center">
                   <input type="checkbox" name="makeVisibleToUser" className="mr-2" />
@@ -124,8 +163,8 @@ export default function CreateProduct() {
                       
                     />
                   </label>
-
                 </div>
+
               </div>
 
             </div>

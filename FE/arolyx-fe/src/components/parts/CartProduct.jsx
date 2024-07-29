@@ -46,8 +46,8 @@ export default function CartProduct({cartItem, handleRemovedItem}) {
          </div>
          <div className="flex justify-between items-center mt-2">
             <div className="flex items-baseline">
-              <p className="text-base md:text-lg font-semibold pr-1">₹ {cartItem?.product?.price}</p>
-              <p className="text-sm md:text-base text-red-700 font-semibold line-through">₹ {cartItem?.product?.discountedPrice}</p>
+              <p className="text-base md:text-lg font-semibold pr-1">₹ {cartItem?.product?.discountedPrice}</p>
+              <p className="text-sm md:text-base text-red-700 font-semibold line-through">₹ {cartItem?.product?.price}</p>
             </div>
            <div className="flex items-center space-x-2 md:space-x-4">
              <p className="text-xs md:text-sm">Qty: {cartItem?.quantity}</p>

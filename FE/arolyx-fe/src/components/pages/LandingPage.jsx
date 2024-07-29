@@ -87,9 +87,9 @@ const LandingPage = () => {
           <p className="text-lg mb-6 max-w-3xl mx-auto animate-fade-in">
             Browse our diverse range of car fresheners and find the perfect scent to complement your style and elevate your driving experience. Whether you prefer floral, fruity, or woody notes, Arolyx has something for everyone.
           </p>
-          <a href="#shop" className="bg-white text-yellow-700 py-3 px-8 rounded-full shadow-xl hover:bg-gray-100 transition duration-300 animate-bounce text-lg font-semibold">
+          <Link to="/products" className="bg-white text-yellow-700 py-3 px-8 rounded-full shadow-xl hover:bg-gray-100 transition duration-300 animate-bounce text-lg font-semibold">
             Shop Now
-          </a>
+          </Link>
         </div>
       </section>
 

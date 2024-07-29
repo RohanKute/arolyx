@@ -42,7 +42,6 @@ export default function ProductDetails({handleCartChange, cartChange}) {
     return (
         <div className="flex flex-col md:h-[500px] w-auto rounded-lg  items-start sm:flex-row sm:justify-center   border   shadow-lg pl-0  bg-white  m-4">
             <div className="">
-
                 <ImageSlider images={product.img} isBestSeller={product.isBestSeller} />
             </div>
             <div className="flex flex-col h-full max-w-80 min-w-80 md:ml-4 p-3 ">
