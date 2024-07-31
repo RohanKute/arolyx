@@ -49,6 +49,7 @@ const updateProduct = router.post('/update-product', adminVerifyLogin, upload.ar
 
             const makeVisibleToUser = (newData.makeVisibleToUser === 'on')
             const isBestSeller = (newData.isBestSeller === 'on')
+            const detailsArray = newData.detailsArray?.split(',')
             const product = await prisma.product.update({
                 where: {
                     id: Number(newData.id)
@@ -63,10 +64,10 @@ const updateProduct = router.post('/update-product', adminVerifyLogin, upload.ar
                     type : newData.type,
                     discount : Number(newData.discount),
                     discountedPrice : discountedPrice,
-                    isBestSeller : isBestSeller
+                    isBestSeller : isBestSeller,
+                    details : detailsArray
                 }
             })
-            console.log(product)
             if (product) {
                 return res.json({
                     messege: "update-success",

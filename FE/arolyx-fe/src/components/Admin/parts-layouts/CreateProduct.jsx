@@ -7,28 +7,31 @@ import { axiosInstanceAdminForm } from '../../../utils/axiosInstanceAdmin';
 import DetailsItems from './DetailsItems';
 
 export default function CreateProduct() {
-  const {adminPopup , setAdminPopup} = useAdminPopup();
+  const { adminPopup, setAdminPopup } = useAdminPopup();
   const [isLoading, setIsLoading] = useState();
   const [detailsArray, setDetailsArray] = useState([]);
-  const [detailsValue , setDetailsValue] = useState();
+  const [detailsValue, setDetailsValue] = useState();
+  const [isMaxDetails, setIsMaxDetails] = useState();
 
   const handleDetailsAdd = (e) => {
-      if(detailsValue !== '') {
-        const arr = [...detailsArray, detailsValue];
-        setDetailsArray(arr);
-        setDetailsValue('');
-      }
-
+    if (detailsArray.length > 3) {
+      setIsMaxDetails(true);
+      return;
+    }
+    if (detailsValue.trim() !== '') {
+      const arr = [...detailsArray, detailsValue];
+      setDetailsArray(arr);
+      setDetailsValue('');
+    }
   }
 
-  const handleChange = (e) =>{
-     console.log(e.target.value);
-     setDetailsValue(e.target.value)
+  const handleChange = (e) => {
+    setDetailsValue(e.target.value)
   }
 
-  const handleRemoveElement = (item) =>{
-      const newArr = detailsArray?.filter((i)=> i!==item);
-      setDetailsArray(newArr);
+  const handleRemoveElement = (item) => {
+    const newArr = detailsArray?.filter((i) => i !== item);
+    setDetailsArray(newArr);
   }
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,19 +39,20 @@ export default function CreateProduct() {
     NProgress.start()
     try {
       const formData = new FormData(e.target);
+      formData.append('detailsArray', detailsArray);
       const response = await axiosInstanceAdminForm.post('http://localhost:3000/admin/create-product', formData);
-      if(response.data.code === 0){
+      if (response.data.code === 0) {
         setAdminPopup({
-          text : 'Product Added Succesfully',
-          messege : 'success'
-       })
-      } 
-      e.target.reset();     
+          text: 'Product Added Succesfully',
+          messege: 'success'
+        })
+      }
+      e.target.reset();
     } catch (error) {
       setAdminPopup({
-        text : 'Interal server error',
-        messege : 'fail'
-     })
+        text: 'Interal server error',
+        messege: 'fail'
+      })
       console.error('Error:', error);
     }
     setIsLoading(false);
@@ -94,23 +98,23 @@ export default function CreateProduct() {
                   <label className="flex flex-col items-start">
                     Add Details List(upto 3)
                     <input
-                        type="text"
-                        name="details"
-                        value={detailsValue}
-                        onChange={handleChange}
-                        className="w-60 h-12 border border-amber-900 focus:border-2 outline-none rounded-md px-4 outline-1 placeholder:text-amber-900 placeholder:text-opacity-50"
-                        placeholder="Detail"
-                        required
-                  />
+                      type="text"
+                      name="details"
+                      value={detailsValue}
+                      onChange={handleChange}
+                      className="w-60 h-12 border border-amber-900 focus:border-2 outline-none rounded-md px-4 outline-1 placeholder:text-amber-900 placeholder:text-opacity-50"
+                      placeholder="Detail"
+
+                    />
                   </label>
-                  <button  type='button'onClick={handleDetailsAdd} className='w-12 m-0.5 h-11 hover:bg-slate-300 rounded-lg bg-slate-200 font-semibold'>Add</button>
+                  <button disabled={isMaxDetails} type='button' onClick={handleDetailsAdd} className='w-12 m-0.5 h-11 hover:bg-slate-300 rounded-lg bg-slate-200 font-semibold'>Add</button>
                 </div>
 
-                <DetailsItems detailsArray={detailsArray} handleRemoveElement={handleRemoveElement}/>
+                <DetailsItems detailsArray={detailsArray} handleRemoveElement={handleRemoveElement} />
 
                 <div className="m-auto p-2">
                   <label className="flex items-center">
-                  <input type="checkbox" name="makeVisibleToUser" className="mr-2" />
+                    <input type="checkbox" name="makeVisibleToUser" className="mr-2" />
                     Make Visible to User?
                   </label>
                   <label className="flex items-center">
@@ -160,7 +164,7 @@ export default function CreateProduct() {
                       accept="image/*"
                       multiple
                       className="w-72 focus:border-2 outline-none outline-1"
-                      
+
                     />
                   </label>
                 </div>
@@ -171,7 +175,7 @@ export default function CreateProduct() {
 
             <div className="m-auto">
               <button
-               disabled = {isLoading}
+                disabled={isLoading}
                 type="submit"
 
                 className={`${isLoading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-amber-400'} w-72 h-12 text-gray-800 font-medium text-center content-center bg-amber-200 rounded-md pl-2 transition duration-300 hover:bg-amber-400`}
