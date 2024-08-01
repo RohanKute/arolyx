@@ -14,15 +14,16 @@ datasource db {
 }
 
 model User {
-  id          Int  @unique @default(autoincrement())
+  id          Int @id @unique @default(autoincrement())
   name        String
   number      BigInt @unique
   password    String
   cartProduct cartProducts[]
+  Reviews  Review[]
 }
 
 model cartProducts {
-  id        Int @unique @default(autoincrement())
+  id        Int @id @unique @default(autoincrement())
   productId Int
   product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
   userId Int
@@ -31,7 +32,7 @@ model cartProducts {
 }
 
 model Product {
-  id          Int    @unique @default(autoincrement())
+  id          Int   @id @unique @default(autoincrement())
   name        String
   description String?
   price       String?
@@ -44,4 +45,15 @@ model Product {
   type        String @default("")
   isBestSeller Boolean @default(false)
   cartPriducts cartProducts[]
+  Reviews Review[]
+}
+
+model Review{
+  id   Int @id @unique @default(autoincrement())
+  text String
+  rating Int
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+  productId Int
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 }
