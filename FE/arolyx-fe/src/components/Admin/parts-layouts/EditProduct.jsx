@@ -181,7 +181,8 @@ export default function EditProduct({ products, editProductId, handleSetEditId }
                                                 value={detailsValue}
                                                 onChange={handleChange}
                                                 className="w-60 h-12 border border-amber-900 focus:border-2 outline-none rounded-md px-4 outline-1 placeholder:text-amber-900 placeholder:text-opacity-50"
-                                                placeholder="Detail"
+                                                placeholder="Detail(max 65 characters)"
+                                                maxLength={65}
 
                                             />
                                         </label>
