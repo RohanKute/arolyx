@@ -6,7 +6,7 @@ import { usePopup } from '../../context/popupContext';
 import { useAuth } from '../../context/authContext';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
-
+// new
 export default function Signup() {
     const [contactNumber, setContactNumber] = useState('');
     const { setIsAuth } = useAuth();
